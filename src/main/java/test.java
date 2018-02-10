@@ -17,7 +17,7 @@ public class test
 		String host = "160.97.63.136";
 		String servUser = "ubuntu";
 		int port = 9418;
-		 String privateKey = "/home/francesco/eclipse-workspace/Minos/res/coscotesi.pem";
+		 String privateKey = "/home/francesco/Scrivania/DB/coscotesi.pem";
 		
 		String rhost = "localhost";
 		int rport = 3306;
