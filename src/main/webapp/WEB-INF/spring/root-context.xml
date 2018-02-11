@@ -59,11 +59,6 @@
 	<bean id="problemDAO" class="it.unical.dao.ProblemDAOImpl">
 		<property name="databaseHandler" ref="databaseHandler" />
 	</bean>
-
-	<bean id="professorDAO"
-		class="it.unical.dao.ProfessorDAOImpl">
-		<property name="databaseHandler" ref="databaseHandler" />
-	</bean>
 	
 	<bean id="registrationDAO" class="it.unical.dao.RegistrationDAOImpl">
 		<property name="databaseHandler" ref="databaseHandler" />

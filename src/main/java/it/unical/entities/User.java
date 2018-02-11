@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import it.unical.dao.DatabaseHandler;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 	
 	@Id
@@ -27,6 +27,9 @@ public class User {
 	@Column(name = "email")
 	private String email;
 	
+	@Column(name = "professor")
+	private boolean professor;
+	
 	public User()
 	{
 		this.id=DatabaseHandler.NO_ID;
@@ -34,15 +37,17 @@ public class User {
 		this.surname="";
 		this.password="";
 		this.email = "";
+		this.professor = false;
 	}
 	
-	public User(Integer matricola, String name, String surname, String password, String email)
+	public User(Integer matricola, String name, String surname, String password, String email, boolean professor)
 	{
 		this.id = matricola;
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
 		this.email = email;
+		this.professor = professor;
 	}
 
 	public Integer getId() {
@@ -83,6 +88,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(boolean professor) {
+		this.professor = professor;
 	}
 	
 	

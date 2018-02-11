@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,9 +26,9 @@ public class Subject
 	@Column(name = "name")
 	private String name;
 	
-	// associazione con professor
-	@Column(name = "id_professor")
-	private Integer id_professor;
+	@ManyToOne
+	@JoinColumn(name = "id_professor")
+	private User id_professor;
 	
 	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,7 +38,7 @@ public class Subject
 	{
 		this.subjectId = null;
 		this.name = null;
-		this.id_professor = DatabaseHandler.NO_ID;
+		this.id_professor = null;
 		
 	}
 
@@ -56,11 +58,11 @@ public class Subject
 		this.name = name;
 	}
 
-	public Integer getId_professor() {
+	public User getId_professor() {
 		return id_professor;
 	}
 
-	public void setId_professor(Integer id_professor) {
+	public void setId_professor(User id_professor) {
 		this.id_professor = id_professor;
 	}
 	

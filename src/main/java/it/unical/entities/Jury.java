@@ -29,7 +29,7 @@ public class Jury
 	
 	@ManyToOne
 	@JoinColumn(name = "jury_leader")
-	private Professor professor;
+	private User professor;
 	
 	@OneToMany(mappedBy = "idcontest", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -42,7 +42,7 @@ public class Jury
 		this.contest = null;
 	}
 	
-	public Jury(Integer id_jury, Professor professor, List<Contest> contest)
+	public Jury(Integer id_jury, User professor, List<Contest> contest)
 	{
 		this.id_jury = id_jury;
 		this.professor = professor;
@@ -65,11 +65,11 @@ public class Jury
 		this.id_jury = id_jury;
 	}
 
-	public Professor getProfessor() {
+	public User getProfessor() {
 		return professor;
 	}
 
-	public void setProfessor(Professor professor) {
+	public void setProfessor(User professor) {
 		this.professor = professor;
 	}
 	
