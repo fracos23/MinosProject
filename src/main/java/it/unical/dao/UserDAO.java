@@ -10,5 +10,7 @@ public interface UserDAO {
 
 	public void update(User user);
 
+	User get(String email);
+	
 	User get(Integer id);
 }

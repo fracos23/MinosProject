@@ -1,0 +1,112 @@
+textarea {
+	resize: none;
+}
+
+form {
+	margin-bottom: 0;
+}
+
+#myModal .menu-entry {
+	padding-right: 120px;
+}
+
+.button-feedback-container {
+	margin-top: 15px;
+	text-align: right;
+}
+
+#map {
+	height: 300px;
+}
+
+.wrapper {
+	padding-left: 15px;
+}
+
+.menu-entry {
+	position: relative;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: 100%;
+}
+
+.name-container {
+	font-size: 150%;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.address-route {
+	vertical-align: middle;
+}
+
+.address-container {
+	font-size: 120%;
+	margin-bottom: 20px;
+}
+
+.email-container {
+	font-size: 120%;
+}
+
+.phone-container {
+	font-size: 120%;
+	margin-top: 10px;
+}
+
+.menu-entry+.menu-entry {
+	border-top: 1px solid #DDDDDD;
+}
+
+.pizza-name, .beverage-name {
+	font-size: 130%;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.right-container {
+	position: absolute;
+	bottom: 15;
+	right: 0;
+}
+
+.pizza-price, .beverage-price {
+	text-align: right;
+	font-size: 150%;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.pizzeriaPizza-label {
+	font-weight: bold;
+}
+
+.pizzeria-buttons-container {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.pizzeria-info-bubble .glyphicon {
+	margin-right: 10px;
+}
+
+.comment-textarea {
+	margin-top: 20px;
+}
+
+.givefeedback-stars {
+	cursor: pointer;
+}
+
+.glyphicon-ok {
+	color: #008800;
+	position: relative;
+	top: 5;
+	left: 12;
+	display: none;
+}
+
+#myModal .glyphicon-ok {
+	top: 3;
+	left: -5;
+}

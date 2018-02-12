@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+
+.select2-container {
+	display: block !important;
+}
+
+.incrementable {
+	margin-bottom: 5%;
+}
+
+td.details-control {
+	background: url('../images/details_open.png') no-repeat center center;
+}
+
+tr.shown td.details-control {
+	background: url('../images/details_close.png') no-repeat center center;
+}
+
+.itemControls {
+	margin-left: 5%;
+}
+
+button#confermeOrder {
+	float: right;
+}
+
+.select2.select2-container {
+	width: auto !important;
+	display: block;
+}
+
+#hidden {
+	display: none;
+}
+
+.booking-data .left-col {
+	padding-right: 40px;
+}
+
+.booking-data .middle-col {
+	padding-right: 40px;
+}
+
+.booking-data .right-col {
+	text-align: center;
+	/* 	border-left: 1px solid #cecece; */
+}
+
+#live-order-tool .row:first-child {
+	padding-bottom: 25px;
+}
+
+#live-order-tool .row+.row {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-top: 1px solid #cecece;
+}
+
+#live-order-tool .row:last-child {
+	padding-bottom: 0px;
+}
+
+#live-order-tool .table-column {
+	padding-right: 30px;
+}
+
+#live-order-tool .pizzaButtons {
+	display: inline;
+}
+
+#live-order-tool .pizzaButtons label {
+	display: inline-block;
+}
+
+#counterPizza, #counterBeverage {
+	display: inline;
+	width: 15%;
+	text-align: center;
+}
+
+.buttonPizzaControls.incrementable *, .buttonBeverageControls.incrementable *
+	{
+	vertical-align: middle;
+}

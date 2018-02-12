@@ -40,9 +40,19 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
+	public User get(String email) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from User where email = :email");
+		query.setParameter("email", email);
+		User user = (User) query.uniqueResult();
+		session.close();
+		return user;
+	}
+
+	@Override
 	public User get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from user where id = :id");
+		Query query = session.createQuery("from User where id = :id");
 		query.setParameter("id", id);
 		User user = (User) query.uniqueResult();
 		session.close();

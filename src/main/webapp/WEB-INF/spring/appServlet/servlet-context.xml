@@ -21,8 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="it.unical" />
-	
-	
-	
+	<context:component-scan base-package="it.unical"
+		use-default-filters="false" />
+
+
+
 </beans:beans>

@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import it.unical.dao.DatabaseHandler;
-
 @Entity
 @Table(name = "subject")
 public class Subject

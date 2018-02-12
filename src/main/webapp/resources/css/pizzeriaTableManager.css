@@ -1,0 +1,17 @@
+#pizzeria-table #tables-table tr {
+	cursor: pointer;
+}
+
+#pizzeria-table .edit-table-form {
+	margin-top: 10px;
+}
+
+#pizzeria-table .buttons-container {
+	margin-top: 20px;
+	text-align: center;
+}
+
+/* Every button preceded by another button. */
+#pizzeria-table .buttons-container button+button {
+	margin-left: 10px;
+}
