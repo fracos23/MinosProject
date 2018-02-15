@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Registration;
 
 public interface RegistrationDAO {
@@ -11,4 +13,6 @@ public interface RegistrationDAO {
 	public void update(Registration registration);
 
 	Registration get(Integer id);
+
+	List<Registration> getRegistrationByStudent(Integer student);
 }

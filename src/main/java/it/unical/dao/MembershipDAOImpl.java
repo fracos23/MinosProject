@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -44,6 +46,18 @@ public class MembershipDAOImpl implements MembershipDAO {
 		Query query = session.createQuery("from membership where id = :id");
 		query.setParameter("id", id);
 		Membership membership = (Membership) query.uniqueResult();
+		session.close();
+		return membership;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Membership> getTeamByStudent(Integer student)
+	{
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Membership where user_matricola = :student");
+		query.setParameter("student", student);
+		List<Membership> membership = (List<Membership>) query.list();
 		session.close();
 		return membership;
 	}

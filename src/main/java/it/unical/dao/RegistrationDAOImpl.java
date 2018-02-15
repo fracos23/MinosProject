@@ -1,8 +1,11 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import it.unical.entities.Membership;
 import it.unical.entities.Registration;
 
 
@@ -47,5 +50,17 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 		Registration registration = (Registration) query.uniqueResult();
 		session.close();
 		return registration;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Registration> getRegistrationByStudent(Integer student)
+	{
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Registration where user_matricola = :student");
+		query.setParameter("student", student);
+		List<Registration> registrations = (List<Registration>) query.list();
+		session.close();
+		return registrations;
 	}
 }

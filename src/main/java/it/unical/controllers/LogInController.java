@@ -36,36 +36,28 @@ public class LogInController {
 			//String passwordHash = hashing.getHash(form.getPassword(), account.getSalt());
 			String password = form.getPassword();
 			//if (passwordHash.equals(account.getPassword())) {
-			if(password.equals(user.getPassword())) {
-				/*
-				 * Check if the account is a User or a Pizzeria. We also need to retrieve the full
-				 * User or the full Pizzeria before storing it into the session.
-				 */
-				/*if (account instanceof User) {
-					UserDAO userDAO = (UserDAO) context.getBean("userDAO");
-					User user = userDAO.get(account.getId());
-					SessionUtils.storeUserIdInSession(session, user);
-				} else if (account instanceof Pizzeria) {
-					PizzeriaDAO pizzeriaDAO = (PizzeriaDAO) context.getBean("pizzeriaDAO");
-					Pizzeria pizzeria = pizzeriaDAO.get(account.getId());
-					SessionUtils.storePizzeriaIdInSession(session, pizzeria);
-				}*/
-			//	userDAO = (UserDAO) context.getBean("userDAO");
-			//	user = userDAO.get(user.getId());
-				SessionUtils.storeUserIdInSession(session, user);			
-				} 
+			if(password.equals(user.getPassword())) 
+			{
+				if(user.isProfessor())
+				{
+				SessionUtils.storeUserIdInSession(session, user);	
+				return "homeProfessor";
+				}
+				else SessionUtils.storeUserIdInSession(session, user);	
+			} 
 			else {
 				logger.info("Login failed");
+				return "index2";
 			}
 		}
 
-		return "index";
+		return "redirect:/";
 
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		SessionUtils.clearSession(session);
-		return "index.jsp";
+		return "index2";
 	}
 }

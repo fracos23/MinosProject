@@ -41,7 +41,7 @@ public class PartecipationDAOImpl implements PartecipationDAO {
 	@Override
 	public Partecipation get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from partecipation where id = :id");
+		Query query = session.createQuery("from Partecipation where id = :id");
 		query.setParameter("id", id);
 		Partecipation partecipation = (Partecipation) query.uniqueResult();
 		session.close();
