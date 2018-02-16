@@ -44,7 +44,7 @@ public class TeamDAOImpl implements TeamDAO {
 	@Override
 	public Team get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from team where id = :id");
+		Query query = session.createQuery("from Team where id_team = :id");
 		query.setParameter("id", id);
 		Team team = (Team) query.uniqueResult();
 		session.close();

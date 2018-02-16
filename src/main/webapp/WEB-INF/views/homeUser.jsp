@@ -37,81 +37,49 @@
 				<div class="bubble info-bubble">
 					<div class="bubble-title">Your latest activity</div>
 					<c:choose>
-						<c:when test="${user.feedbacks.size() > 0}">
+						<c:when test="${teams.size() > 0}">
 							<div class="feedbacks-header">
-								<a href="usermainview?id=${user.id}">View all feedbacks.</a>
+								<a href="teamsviews">View all Teams</a>
 							</div>
-							<div class="feedbacks">
-								<c:forEach items="${user.feedbacks}" var="feedback">
+							<div class="teams">
+								<c:forEach items="${teams}" var="team">
 									<div class="feedback">
 										<div class="pizzeria-name">
-											<a href="pizzeriamainview?id=${feedback.pizzeria.id}">${feedback.pizzeria.name}</a>
+											<a href="teamsviews">${team.name}</a>
 										</div>
-										<div class="ratings">
-											<div class="rating row">
-												<div class="col-xs-3 rating-name">Quality</div>
-												<div class="col-xs-9">
-													<span class="stars"><c:forEach begin="1" end="${feedback.qualityRating}">
-													<img src="resources/images/star.png">
-												</c:forEach> <c:forEach begin="${feedback.qualityRating}" end="4">
-													<img src="resources/images/star_grey.png">
-												</c:forEach></span>
-												</div>
-											</div>
-											<div class="rating row">
-												<div class="col-xs-3 rating-name">Fastness</div>
-												<div class="col-xs-9">
-													<span class="stars"><c:forEach begin="1" end="${feedback.fastnessRating}">
-													<img src="resources/images/star.png">
-												</c:forEach> <c:forEach begin="${feedback.fastnessRating}" end="4">
-													<img src="resources/images/star_grey.png">
-												</c:forEach></span>
-												</div>
-											</div>
-											<div class="rating row">
-												<div class="col-xs-3 rating-name">Hospitality</div>
-												<div class="col-xs-9">
-													<span class="stars"><c:forEach begin="1" end="${feedback.hospitalityRating}">
-													<img src="resources/images/star.png">
-												</c:forEach> <c:forEach begin="${feedback.hospitalityRating}" end="4">
-													<img src="resources/images/star_grey.png">
-												</c:forEach></span>
-												</div>
-											</div>
-										</div>
-										<div class="comment">"${feedback.comment}"</div>
 									</div>
 								</c:forEach>
 							</div>
 						</c:when>
 						<c:otherwise>
-							<div class="no-feedbacks">You didn't leave any feedback yet.</div>
+							<div class="no-team">You have no team yet.</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
 			<div class="col-xs-8 wrapper">
 				<div class="bubble">
-					<div class="bubble-title">Book a pizza now!</div>
-					<h4>Most Sold:</h4>
-					<c:forEach begin="0" end="4" items="${top}" var="p">
-						<div class="top-pizza">
-							<a class="myref" href="pizza?id=${p.getId()}">${p.name}</a>
-							<div>
-								<span class="pizzeriaPizza-label">Ingredients:</span>
-									<c:forEach var="i" begin="0" end="${p.pizzaIngredients.size() - 1}"><span>${p.pizzaIngredients[i].ingredient.name}</span><c:if test="${i != p.pizzaIngredients.size() -1 }">, </c:if></c:forEach>
-							</div>
-						</div>
-					</c:forEach>
+					<div class="bubble-title">Your submissions</div>
+					<h4>Latest:</h4>
+					<c:forEach items="${submits}" var="submit">
+									<div class="submit">
+										<div class="submit">
+											<a href="contestviews">${submit.problem.name} qua ci metto la data ${problem.score} </a>
+										</div>
+									</div>
+								</c:forEach>
 				</div>
 				<div class="bubble">
-					<div class="bubble-title">Find pizzerias near you</div>
-					<div>
-						Find pizzerias within <input type="number" value="${radius}" class="form-control form-radius">
-						km
-						<button class="btn btn-default button-radius">Update</button>
-					</div>
-					<div id="map"></div>
+					<div class="bubble-title">Corsi che segui</div>
+					<c:forEach items="${subjects}" var="subject">
+									<div class="subject">
+										<div class="subject">
+											<a> ${subject}</a>
+											<a>  </a>
+											<a href="www.mat.unical.it/informatica"> Sito corso </a>
+										</div>
+									</div>
+						</c:forEach>
 				</div>
 			</div>
 		</div>

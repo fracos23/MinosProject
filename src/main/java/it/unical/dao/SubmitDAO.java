@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Submit;
 
 public interface SubmitDAO {
@@ -11,4 +13,6 @@ public interface SubmitDAO {
 	public void update(Submit submit);
 
 	Submit get(Integer id);
+
+	public List<Submit> getAllSubmitByTeam(Integer team);
 }

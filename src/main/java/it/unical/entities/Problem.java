@@ -39,9 +39,22 @@ public class Problem
 	@Column(name = "description")
 	private String description;
 	
-//	@Column(name = "contest_idcontest")
-//	private Integer contest_idcontest;
+	@ManyToOne
+	@JoinColumn(name = "id_jury")
+	private Jury jury;
 	
+	/*@ManyToOne
+	@JoinColumn(name = "id_submit")
+	private Submit submit;
+	
+	public Submit getSubmit() {
+		return submit;
+	}
+
+	public void setSubmit(Submit submit) {
+		this.submit = submit;
+	}*/
+
 	@ManyToOne
 	@JoinColumn(name = "contest_idcontest")
 	private Contest id_contest;
@@ -55,7 +68,7 @@ public class Problem
 		this.rankable = null;
 		this.url_image = null;
 		this.description = null;
-//		this.contest_idcontest = null;
+//		this.submit = null;
 	}
 
 	public Integer getId_problem() {
@@ -113,15 +126,6 @@ public class Problem
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-/*	public Integer getContest_idcontest() {
-		return contest_idcontest;
-	}
-
-	public void setContest_idcontest(Integer contest_idcontest) {
-		this.contest_idcontest = contest_idcontest;
-	}
-*/
 
 	public Contest getId_contest() {
 		return id_contest;

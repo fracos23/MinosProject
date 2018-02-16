@@ -1,8 +1,11 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import it.unical.entities.Registration;
 import it.unical.entities.Submit;
 
 
@@ -43,10 +46,22 @@ public class SubmitDAOImpl implements SubmitDAO {
 	@Override
 	public Submit get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from submit where id = :id");
+		Query query = session.createQuery("from Submit where id = :id");
 		query.setParameter("id", id);
 		Submit submit = (Submit) query.uniqueResult();
 		session.close();
 		return submit;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Submit> getAllSubmitByTeam(Integer team) {
+
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Submit where id_team = :team");
+		query.setParameter("team", team);
+		List<Submit> submits = (List<Submit>) query.list();
+		session.close();
+		return submits;
 	}
 }

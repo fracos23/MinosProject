@@ -7,7 +7,7 @@
 				data-target="#id-navbar-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<span class="navbar-brand"> <img alt="Brand" src="resources/images/pizza_icon.png">
+			<span class="navbar-brand"> <img alt="Brand" src="resources/images/images.png">
 			</span> <a class="navbar-brand" href="/">Loggati</a>
 		</div>
 

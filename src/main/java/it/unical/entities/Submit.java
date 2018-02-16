@@ -1,11 +1,20 @@
 package it.unical.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import it.unical.dao.DatabaseHandler;
 
@@ -18,13 +27,13 @@ public class Submit
  	@Column(name = "id")
 	private Integer id;
 	
-	//relation
-	@Column(name = "team_idteam")
-	private Integer idTeam;
+	@ManyToOne
+	@JoinColumn(name = "id_team")
+	private Team team;
 	
-	//relation
-	@Column(name = "problem_idproblem")
-	private Integer idProblem;
+	@ManyToOne
+	@JoinColumn(name = "id_problem")
+	private Problem problem;
 	
 	@Column(name = "score")
 	private String score;
@@ -38,20 +47,11 @@ public class Submit
 	public Submit()
 	{
 		this.id = DatabaseHandler.NO_ID;
-		this.idTeam = DatabaseHandler.NO_ID;
-		this.idProblem = DatabaseHandler.NO_ID;
+		this.problem = null;
+		this.team = null;
 		this.score = null;
 		this.info = null;
 		this.solution = null;
-	}
-
-	public Submit(Integer id, Integer idTeam, Integer idProblem, String score, String info, String solution) {
-		this.id = id;
-		this.idTeam = idTeam;
-		this.idProblem = idProblem;
-		this.score = score;
-		this.info = info;
-		this.solution = solution;
 	}
 
 	public Integer getId() {
@@ -62,20 +62,20 @@ public class Submit
 		this.id = id;
 	}
 
-	public Integer getIdTeam() {
-		return idTeam;
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setIdTeam(Integer idTeam) {
-		this.idTeam = idTeam;
+	public void setIdTeam(Team team) {
+		this.team = team;
 	}
 
-	public Integer getIdProblem() {
-		return idProblem;
+	public Problem getProblem() {
+		return problem;
 	}
 
-	public void setIdProblem(Integer idProblem) {
-		this.idProblem = idProblem;
+	public void setProblem(Problem problem) {
+		this.problem = problem;
 	}
 
 	public String getScore() {

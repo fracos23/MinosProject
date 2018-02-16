@@ -8,8 +8,8 @@
 				data-target="#id-navbar-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<span class="navbar-brand"> <img alt="Brand" src="resources/images/pizza_icon.png">
-			</span> <a class="navbar-brand" href="/">PizzaManager</a>
+			<span class="navbar-brand"> <img alt="Brand" src="resources/images/images.png">
+			</span> <a class="navbar-brand" href="/">JudgeManager</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="id-navbar-collapse">
@@ -32,7 +32,7 @@
 					</form:form></li>
 				<!-- <li><a href="#">Adv.Search</a></li> -->
 				<c:if test="${user != null}">
-					<li><a href="/cart">Cart</a></li>
+					<li><a href="/index2">Settings</a></li>
 				</c:if>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span
 						class="glyphicon glyphicon-user button-glyphicon"></span> <!-- One will be empty and won't be printed. -->
