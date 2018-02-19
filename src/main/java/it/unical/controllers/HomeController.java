@@ -11,20 +11,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 
+import it.unical.dao.ContestDAO;
 import it.unical.dao.MembershipDAO;
 import it.unical.dao.RegistrationDAO;
+import it.unical.dao.SubjectDAO;
 import it.unical.dao.SubmitDAO;
 import it.unical.dao.TeamDAO;
 import it.unical.dao.UserDAO;
+import it.unical.entities.Contest;
 import it.unical.entities.Membership;
 import it.unical.entities.Registration;
+import it.unical.entities.Subject;
 import it.unical.entities.Submit;
 import it.unical.entities.Team;
 import it.unical.entities.User;
+import it.unical.forms.SearchForm;
 import it.unical.utils.SessionUtils;
 
 
@@ -85,10 +91,71 @@ public class HomeController {
 		model.addAttribute("teams", teams);
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("submits", submits);
-		
-		
+		//MANCANO CONTEST
 		
 	}
+	
+	//research back-end
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String search(@ModelAttribute SearchForm form, HttpSession session, Model model) {
 
+		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+		List<User> users = userDAO.getAll();
+		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
+		List<Subject> subjects = subjectDAO.getAll();
+		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
+		List<Contest> contests = contestDAO.getAll();
+		List<User> result = new ArrayList<User>();
+		List<Subject> result2 = new ArrayList<Subject>();
+		List<Contest> result3 = new ArrayList<Contest>();
+		try
+		{
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getId().toString().contains(form.getWord()))
+				result.add(users.get(i));
+		}
+		for (int j = 0; j < subjects.size(); j++) {
+			if ((subjects.get(j).getName().toLowerCase().contains(form.getWord().toLowerCase())) || (subjects.get(j).getSubjectId().getId_subject() == Integer.parseInt(form.getWord())))
+				result2.add(subjects.get(j));
+		}
+		
+		for (int j = 0; j < contests.size(); j++) {
+			if ((contests.get(j).getName().toLowerCase().contains(form.getWord().toLowerCase())) || (contests.get(j).getIdcontest() == (Integer.parseInt(form.getWord()))))
+				result3.add(contests.get(j));
+		}
+		} catch(Exception e)
+		{
+			for (int i = 0; i < users.size(); i++) {
+				if (users.get(i).getId().toString().contains(form.getWord()))
+					result.add(users.get(i));
+			}
+			for (int j = 0; j < subjects.size(); j++) {
+				if ((subjects.get(j).getName().toLowerCase().contains(form.getWord().toLowerCase())))
+					result2.add(subjects.get(j));
+			}
+			
+			for (int j = 0; j < contests.size(); j++) {
+				if ((contests.get(j).getName().toLowerCase().contains(form.getWord().toLowerCase())))
+					result3.add(contests.get(j));
+		}
+		}
+		setAccountAttribute(session, model);
+		model.addAttribute("UserResult", result);
+		model.addAttribute("SubjectResult", result2);
+		model.addAttribute("ContestResult", result3);
+
+		return "resultpage";
+	}
+
+	private void setAccountAttribute(HttpSession session, Model model) {
+		if (SessionUtils.isUser(session)) {
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
+			model.addAttribute("user", user);
+			model.addAttribute("typeSession", "Account");
+		} else {
+			model.addAttribute("typeSession", "Login");
+		}
+	}
 	
 }

@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Subject;
 
 public interface SubjectDAO {
@@ -11,4 +13,6 @@ public interface SubjectDAO {
 	public void update(Subject subject);
 
 	Subject get(Integer id);
+
+	public List<Subject> getAll();
 }

@@ -1,8 +1,11 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import it.unical.entities.Contest;
+import it.unical.entities.Subject;
 
 @SuppressWarnings("unused")
 public class ContestDAOImpl implements ContestDAO {
@@ -45,5 +48,13 @@ public class ContestDAOImpl implements ContestDAO {
 		Contest contest = (Contest) query.uniqueResult();
 		session.close();
 		return contest;
+	}
+	
+	@Override
+	public List<Contest> getAll() {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		List<Contest> contests = session.createQuery("from Contest").list();
+		session.close();
+		return contests;
 	}
 }

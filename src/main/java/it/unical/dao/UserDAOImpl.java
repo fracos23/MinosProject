@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -57,5 +59,13 @@ public class UserDAOImpl implements UserDAO {
 		User user = (User) query.uniqueResult();
 		session.close();
 		return user;
+	}
+
+	@Override
+	public List<User> getAll() {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		List<User> users = session.createQuery("from User").list();
+		session.close();
+		return users;
 	}
 }

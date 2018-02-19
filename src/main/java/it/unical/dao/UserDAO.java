@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.User;
 
 public interface UserDAO {
@@ -13,4 +15,6 @@ public interface UserDAO {
 	User get(String email);
 	
 	User get(Integer id);
+
+	public List<User> getAll();
 }

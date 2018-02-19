@@ -1,9 +1,12 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import it.unical.entities.Subject;
+import it.unical.entities.User;
 
 
 
@@ -48,5 +51,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Subject subject = (Subject) query.uniqueResult();
 		session.close();
 		return subject;
+	}
+	
+	@Override
+	public List<Subject> getAll() {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		List<Subject> subjects = session.createQuery("from Subject").list();
+		session.close();
+		return subjects;
 	}
 }

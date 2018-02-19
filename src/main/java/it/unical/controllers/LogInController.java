@@ -58,6 +58,6 @@ public class LogInController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		SessionUtils.clearSession(session);
-		return "index2";
+		return "redirect:/";
 	}
 }

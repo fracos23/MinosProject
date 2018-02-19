@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Contest;
 
 public interface ContestDAO {
@@ -11,4 +13,6 @@ public interface ContestDAO {
 	public void update(Contest contest);
 	
 	public Contest get(Integer id);
+
+	public List<Contest> getAll();
 }

@@ -39,13 +39,13 @@
 					<c:choose>
 						<c:when test="${teams.size() > 0}">
 							<div class="feedbacks-header">
-								<a href="teamsviews">View all Teams</a>
+								<a href="teamsviews.jsp">View all Teams</a>
 							</div>
 							<div class="teams">
 								<c:forEach items="${teams}" var="team">
 									<div class="feedback">
 										<div class="pizzeria-name">
-											<a href="teamsviews">${team.name}</a>
+											<a href="teamsviews.jsp">${team.name}</a>
 										</div>
 									</div>
 								</c:forEach>
@@ -64,7 +64,7 @@
 					<c:forEach items="${submits}" var="submit">
 									<div class="submit">
 										<div class="submit">
-											<a href="contestviews">${submit.problem.name} qua ci metto la data ${problem.score} </a>
+											<a href="contestviews">${submit.problem.name} (qua ci metto la data) ${problem.score} </a>
 										</div>
 									</div>
 								</c:forEach>
@@ -74,9 +74,9 @@
 					<c:forEach items="${subjects}" var="subject">
 									<div class="subject">
 										<div class="subject">
-											<a> ${subject}</a>
+											<div> ${subject}</div>
 											<a>  </a>
-											<a href="www.mat.unical.it/informatica"> Sito corso </a>
+											<a href="https://www.mat.unical.it/informatica"> Sito corso </a>
 										</div>
 									</div>
 						</c:forEach>
