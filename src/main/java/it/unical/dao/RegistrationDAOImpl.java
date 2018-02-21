@@ -7,6 +7,7 @@ import org.hibernate.Session;
 
 import it.unical.entities.Membership;
 import it.unical.entities.Registration;
+import it.unical.entities.SubjectId;
 
 
 @SuppressWarnings("unused")
@@ -62,5 +63,17 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 		List<Registration> registrations = (List<Registration>) query.list();
 		session.close();
 		return registrations;
+	}
+	
+	@Override
+	public Registration getRegistration(Integer student, SubjectId subjectId) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Registration where user_matricola = :student and subject_idsubject = :subject and year = :year");
+		query.setParameter("student", student);
+		query.setParameter("subject", subjectId.getId_subject());
+		query.setParameter("year", Integer.parseInt(subjectId.getYear()));
+		Registration registration = (Registration) query.uniqueResult();
+		session.close();
+		return registration;
 	}
 }

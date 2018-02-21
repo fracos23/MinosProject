@@ -23,7 +23,7 @@ import it.unical.dao.DatabaseHandler;
 public class Submit
 {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
  	@Column(name = "id")
 	private Integer id;
 	

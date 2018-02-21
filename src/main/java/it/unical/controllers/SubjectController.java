@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
+import it.unical.dao.RegistrationDAO;
 import it.unical.dao.SubjectDAO;
 import it.unical.dao.UserDAO;
+import it.unical.entities.Registration;
 import it.unical.entities.Subject;
 import it.unical.entities.User;
 import it.unical.forms.SubjectPasswordForm;
@@ -41,13 +43,24 @@ public class SubjectController {
 	@RequestMapping(value = "/signUpSubject", method = RequestMethod.POST)
 	public String login(HttpSession session,@RequestParam String name, @ModelAttribute("subjectPasswordForm") SubjectPasswordForm form,  Model model) {
 
+		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
 		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
 		Subject subject = subjectDAO.get(name);
-		setAccountAttribute(session, model);
+		RegistrationDAO registrationDAO = (RegistrationDAO) context.getBean("registrationDAO");
+		Registration registration = registrationDAO.getRegistration(user.getId(), subject.getSubjectId());
+		setAccountAttribute(session, model); 
 		if(subject.getPassword().equals(form.getpassword()))
 		{
-			
-			return "iscritto";
+			if(registration == null)
+			{
+				registration = new Registration();
+				registration.setSubject(subject);
+				registration.setUser(user);
+				registrationDAO.create(registration);
+				return "iscritto";
+			}
+			else return "index";
 		}
 			
 		return "index";

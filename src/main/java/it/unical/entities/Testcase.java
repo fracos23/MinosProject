@@ -14,7 +14,7 @@ import it.unical.dao.DatabaseHandler;
 public class Testcase
 {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
  	@Column(name = "id_testcase")
 	private Integer id_testcase;
 	

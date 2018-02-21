@@ -19,21 +19,9 @@ import it.unical.dao.DatabaseHandler;
 public class Team
 {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
  	@Column(name = "id_team")
 	private Integer id;
-	
-	/*@OneToMany
-	@JoinColumn(name = "id_submit")
-	private List<Submit> submit;
-	
- 	public List<Submit> getSubmit() {
-		return submit;
-	}
-
-	public void setSubmit(List<Submit> submit) {
-		this.submit = submit;
-	}*/
 
 	@Column(name = "name")
 	private String name;
