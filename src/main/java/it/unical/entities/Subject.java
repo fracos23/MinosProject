@@ -24,6 +24,9 @@ public class Subject
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "password")
+	private String password;
+
 	@ManyToOne
 	@JoinColumn(name = "id_professor")
 	private User id_professor;
@@ -64,5 +67,11 @@ public class Subject
 		this.id_professor = id_professor;
 	}
 	
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

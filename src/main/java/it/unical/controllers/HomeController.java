@@ -18,6 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import it.unical.dao.ContestDAO;
 import it.unical.dao.MembershipDAO;
+import it.unical.dao.PartecipationDAO;
 import it.unical.dao.RegistrationDAO;
 import it.unical.dao.SubjectDAO;
 import it.unical.dao.SubmitDAO;
@@ -25,6 +26,7 @@ import it.unical.dao.TeamDAO;
 import it.unical.dao.UserDAO;
 import it.unical.entities.Contest;
 import it.unical.entities.Membership;
+import it.unical.entities.Partecipation;
 import it.unical.entities.Registration;
 import it.unical.entities.Subject;
 import it.unical.entities.Submit;
@@ -86,11 +88,20 @@ public class HomeController {
 				submits.add(submitDAO.getAllSubmitByTeam((teams.get(i).getId())).get(j));//sono più submit
 		}
 		
+		PartecipationDAO partecipationDAO = (PartecipationDAO) context.getBean("partecipationDAO");
+		ArrayList<Partecipation> contests = new ArrayList<Partecipation>(10); //da modificare il valore
+		for(int i=0; i<teams.size(); i++)
+		{
+			for(int j=0; j<partecipationDAO.getContestByTeam(teams.get(i).getId()).size(); j++)
+				contests.add(partecipationDAO.getContestByTeam(teams.get(i).getId()).get(j));//sono più submit
+		}
+		
 		model.addAttribute(MODEL_ATTRIBUTE_USER, user);
 		//Storico personale
 		model.addAttribute("teams", teams);
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("submits", submits);
+		model.addAttribute("contests", contests);
 		//MANCANO CONTEST
 		
 	}

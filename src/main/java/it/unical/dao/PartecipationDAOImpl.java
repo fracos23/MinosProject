@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -44,6 +46,16 @@ public class PartecipationDAOImpl implements PartecipationDAO {
 		Query query = session.createQuery("from Partecipation where id = :id");
 		query.setParameter("id", id);
 		Partecipation partecipation = (Partecipation) query.uniqueResult();
+		session.close();
+		return partecipation;
+	}
+
+	@Override
+	public List<Partecipation> getContestByTeam(Integer team) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Partecipation where team_idteam = :team");
+		query.setParameter("team", team);
+		List<Partecipation> partecipation = (List<Partecipation>) query.list();
 		session.close();
 		return partecipation;
 	}

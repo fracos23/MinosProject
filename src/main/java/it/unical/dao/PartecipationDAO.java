@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Partecipation;
 
 public interface PartecipationDAO {
@@ -11,4 +13,6 @@ public interface PartecipationDAO {
 	public void update(Partecipation partecipation);
 
 	Partecipation get(Integer id);
+
+	public List<Partecipation> getContestByTeam(Integer team);
 }

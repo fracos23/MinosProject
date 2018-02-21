@@ -60,4 +60,14 @@ public class SubjectDAOImpl implements SubjectDAO {
 		session.close();
 		return subjects;
 	}
+
+	@Override
+	public Subject get(String name) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Subject where name = :name");
+		query.setParameter("name", name);
+		Subject subject = (Subject) query.uniqueResult();
+		session.close();
+		return subject;
+	}
 }

@@ -74,9 +74,20 @@
 					<c:forEach items="${subjects}" var="subject">
 									<div class="subject">
 										<div class="subject">
-											<div> ${subject}</div>
+											<a href="<c:url value="/subject?name=${subject}" />"> ${subject}</a>
 											<a>  </a>
 											<a href="https://www.mat.unical.it/informatica"> Sito corso </a>
+										</div>
+									</div>
+						</c:forEach>
+				</div>
+				<div class="bubble">
+					<div class="bubble-title">Contest a cui sei iscritto</div>
+					<c:forEach items="${contests}" var="contest">
+									<div class="contest">
+										<div class="contest">
+											<div> ${contest.contest.name} ${contest.contest.idcontest}</div>
+											
 										</div>
 									</div>
 						</c:forEach>
