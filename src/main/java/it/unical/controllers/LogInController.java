@@ -41,7 +41,7 @@ public class LogInController {
 				if(user.isProfessor())
 				{
 				SessionUtils.storeUserIdInSession(session, user);	
-				return "homeProfessor";
+				return "redirect:/";
 				}
 				else SessionUtils.storeUserIdInSession(session, user);	
 			} 

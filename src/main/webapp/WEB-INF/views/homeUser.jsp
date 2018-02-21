@@ -22,6 +22,8 @@
 </style>
 </head>
 <body>
+<c:choose>
+	<c:when test="${user.professor == false}">
 	<jsp:include page="includes/navbarAccount.jsp" />
 
 	<div class="container">
@@ -39,13 +41,13 @@
 					<c:choose>
 						<c:when test="${teams.size() > 0}">
 							<div class="feedbacks-header">
-								<a href="teamsviews.jsp">View all Teams</a>
+								<a href="createteam">View all Teams</a>
 							</div>
 							<div class="teams">
 								<c:forEach items="${teams}" var="team">
 									<div class="feedback">
 										<div class="pizzeria-name">
-											<a href="teamsviews.jsp">${team.name}</a>
+											<a href="createteam">${team.name}</a>
 										</div>
 									</div>
 								</c:forEach>
@@ -95,6 +97,11 @@
 			</div>
 		</div>
 	</div>
+</c:when>
+<c:otherwise>
+<h2>Home Page Professore (soon available) ${user.professor}</h2>
+</c:otherwise>
+</c:choose>
 </body>
 
 </html>

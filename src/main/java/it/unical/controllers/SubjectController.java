@@ -43,13 +43,15 @@ public class SubjectController {
 	@RequestMapping(value = "/signUpSubject", method = RequestMethod.POST)
 	public String login(HttpSession session,@RequestParam String name, @ModelAttribute("subjectPasswordForm") SubjectPasswordForm form,  Model model) {
 
+		if(!SessionUtils.isUser(session))
+			return null;
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
 		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
 		Subject subject = subjectDAO.get(name);
 		RegistrationDAO registrationDAO = (RegistrationDAO) context.getBean("registrationDAO");
 		Registration registration = registrationDAO.getRegistration(user.getId(), subject.getSubjectId());
-		setAccountAttribute(session, model); 
+		setAccountAttribute(session, model);
 		if(subject.getPassword().equals(form.getpassword()))
 		{
 			if(registration == null)

@@ -1,3 +1,8 @@
+package it.unical.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
+import it.unical.dao.MembershipDAO;
+import it.unical.dao.TeamDAO;
 import it.unical.dao.UserDAO;
+import it.unical.entities.Membership;
+import it.unical.entities.Team;
 import it.unical.entities.User;
 import it.unical.utils.SessionUtils;
 
@@ -22,12 +31,20 @@ public class TeamController {
 	@Autowired
 	private WebApplicationContext context;
 
-	@RequestMapping(value = "/teamviews", method = RequestMethod.GET)
-	public String subjectMainView(@RequestParam String name, HttpSession session, Model model) {
+	@RequestMapping(value = "/createteam", method = RequestMethod.GET)
+	public String subjectMainView( HttpSession session, Model model) {
 
+		MembershipDAO membershipDAO = (MembershipDAO) context.getBean("membershipDAO");
+		List<Membership> memberships = membershipDAO.getTeamByStudent(SessionUtils.getUserIdFromSessionOrNull(session));
+		TeamDAO teamDAO = (TeamDAO) context.getBean("teamDAO");
+		ArrayList<Team> teams = new ArrayList<Team> (memberships.size());
+		for(int i=0; i<memberships.size(); i++)
+		{
+			teams.add(teamDAO.get(memberships.get(i).getTeam().getId()));
+		}
 		setAccountAttribute(session, model);
-		model.addAttribute("name", name);
-		return "subjectview";
+		model.addAttribute("teams", teams);
+		return "teamviews";
 
 	}
 	
@@ -37,7 +54,9 @@ public class TeamController {
 			User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
 			model.addAttribute("user", user);
 			model.addAttribute("typeSession", "Account");
+			model.addAttribute("userLogged", true);
 		} else {
 			model.addAttribute("typeSession", "Login");
 		}
 	}
+}
