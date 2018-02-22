@@ -15,4 +15,8 @@ public interface ContestDAO {
 	public Contest get(Integer id);
 
 	public List<Contest> getAll();
+
+	public Contest getContestByName(String name);
+	
+	List<Contest> getContestBySubject(Integer subject, Integer year);
 }

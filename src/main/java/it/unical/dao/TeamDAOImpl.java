@@ -50,4 +50,14 @@ public class TeamDAOImpl implements TeamDAO {
 		session.close();
 		return team;
 	}
+
+	@Override
+	public Team getByName(String name) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Team where name = :name");
+		query.setParameter("name", name);
+		Team team = (Team) query.uniqueResult();
+		session.close();
+		return team;
+	}
 }

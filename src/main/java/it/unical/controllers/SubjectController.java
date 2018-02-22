@@ -1,5 +1,7 @@
 package it.unical.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
+import it.unical.dao.ContestDAO;
 import it.unical.dao.RegistrationDAO;
 import it.unical.dao.SubjectDAO;
 import it.unical.dao.UserDAO;
+import it.unical.entities.Contest;
 import it.unical.entities.Registration;
 import it.unical.entities.Subject;
 import it.unical.entities.User;
@@ -34,14 +38,20 @@ public class SubjectController {
 	@RequestMapping(value = "/subject", method = RequestMethod.GET)
 	public String subjectMainView(@RequestParam String name, HttpSession session, Model model) {
 
+		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
+		Subject subject = subjectDAO.get(name);
 		setAccountAttribute(session, model);
+		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
+		List<Contest> contests = contestDAO.getContestBySubject(subject.getSubjectId().getId_subject(), Integer.parseInt(subject.getSubjectId().getYear()));
+		
+		model.addAttribute("contests",contests);
 		model.addAttribute("name", name);
 		return "subjectview";
 
 	}
 	
 	@RequestMapping(value = "/signUpSubject", method = RequestMethod.POST)
-	public String login(HttpSession session,@RequestParam String name, @ModelAttribute("subjectPasswordForm") SubjectPasswordForm form,  Model model) {
+	public String subjectSignUp(HttpSession session,@RequestParam String name, @ModelAttribute("subjectPasswordForm") SubjectPasswordForm form,  Model model) {
 
 		if(!SessionUtils.isUser(session))
 			return null;

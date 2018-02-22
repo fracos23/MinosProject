@@ -58,6 +58,17 @@ h2 {
 				
 				
 		</div>
+		<div class="bubble">
+					<div class="bubble-title">Subject contests</div>
+					<h4>Latest:</h4>
+					<c:forEach items="${contests}" var="contest">
+									<div class="contest">
+										<div class="contest">
+											<a href="contest?name=${contest.name}">${contest.name}</a>
+										</div>
+									</div>
+								</c:forEach>
+				</div>
 		</div>
 		</div>
 	</div>

@@ -42,18 +42,6 @@ public class Problem
 	@ManyToOne
 	@JoinColumn(name = "id_jury")
 	private Jury jury;
-	
-	/*@ManyToOne
-	@JoinColumn(name = "id_submit")
-	private Submit submit;
-	
-	public Submit getSubmit() {
-		return submit;
-	}
-
-	public void setSubmit(Submit submit) {
-		this.submit = submit;
-	}*/
 
 	@ManyToOne
 	@JoinColumn(name = "contest_idcontest")
@@ -68,7 +56,6 @@ public class Problem
 		this.rankable = null;
 		this.url_image = null;
 		this.description = null;
-//		this.submit = null;
 	}
 
 	public Integer getId_problem() {

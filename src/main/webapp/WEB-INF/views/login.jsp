@@ -15,7 +15,7 @@
 			<ul class="nav navbar-nav">
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><form:form class="navbar-form form-inline" action="login" method="post"
+				<form:form class="navbar-form form-inline" action="login" method="post"
 						modelAttribute="logInForm">
 						<div class="form-group">
 							<input type="text" class="form-control" name="email" placeholder="Email">
@@ -24,7 +24,7 @@
 							<input type="text" class="form-control" name="password" placeholder="Password">
 						</div>
 						<input type="submit" class="btn btn-primary button-login" value="Log in" />
-					</form:form></li>
+					</form:form>
 			</ul>
 		</div>
 	</div>

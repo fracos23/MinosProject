@@ -13,4 +13,6 @@ public interface TeamDAO {
 	public void update(Team team);
 
 	Team get(Integer id);
+	
+	Team getByName(String name);
 }

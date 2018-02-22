@@ -43,8 +43,8 @@ public class ContestDAOImpl implements ContestDAO {
 	@Override
 	public Contest get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from contest where id = :id");
-		query.setParameter("id", id);
+		Query query = session.createQuery("from Contest where idcontest = :idcontest");
+		query.setParameter("idcontest", id);
 		Contest contest = (Contest) query.uniqueResult();
 		session.close();
 		return contest;
@@ -54,6 +54,27 @@ public class ContestDAOImpl implements ContestDAO {
 	public List<Contest> getAll() {
 		Session session = databaseHandler.getSessionFactory().openSession();
 		List<Contest> contests = session.createQuery("from Contest").list();
+		session.close();
+		return contests;
+	}
+	
+	@Override
+	public List<Contest> getContestBySubject(Integer subject, Integer year) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Contest where id_subject = :subject and year = :year");
+		query.setParameter("subject", subject);
+		query.setParameter("year", year);
+		List<Contest> contests =  query.list();
+		session.close();
+		return contests;
+	}
+
+	@Override
+	public Contest getContestByName(String name) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Contest where name = :name");
+		query.setParameter("name", name);
+		Contest contests =  (Contest) query.uniqueResult();
 		session.close();
 		return contests;
 	}

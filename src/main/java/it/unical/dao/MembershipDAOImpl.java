@@ -61,4 +61,16 @@ public class MembershipDAOImpl implements MembershipDAO {
 		session.close();
 		return membership;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Membership> getStudentsByTeam(Integer team)
+	{
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Membership where team_idteam = :team");
+		query.setParameter("team", team);
+		List<Membership> students = (List<Membership>) query.list();
+		session.close();
+		return students;
+	}
 }

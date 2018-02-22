@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.Problem;
 
 public interface ProblemDAO {
@@ -11,4 +13,6 @@ public interface ProblemDAO {
 	public void update(Problem problem);
 
 	Problem get(Integer id);
+
+	List<Problem> getProblemOfAContest(Integer contest);
 }

@@ -15,4 +15,6 @@ public interface MembershipDAO {
 	Membership get(Integer id);
 
 	List<Membership> getTeamByStudent(Integer student);
+
+	List<Membership> getStudentsByTeam(Integer team);
 }

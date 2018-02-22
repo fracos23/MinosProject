@@ -102,7 +102,6 @@ public class HomeController {
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("submits", submits);
 		model.addAttribute("contests", contests);
-		//MANCANO CONTEST
 		
 	}
 	

@@ -43,7 +43,7 @@ h2 {
 					<c:forEach var="subject" items="${SubjectResult}">
 						<div class="row menu-entry">
 							<div class="subject-name">
-								<a>${subject.name}</a>
+								<a href="subject?name=${subject.name}">${subject.name}</a>
 							</div>							
 							<div class="right-container">
 								<h4>(Corso)</h4>
