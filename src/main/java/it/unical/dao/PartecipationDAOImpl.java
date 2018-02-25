@@ -49,6 +49,17 @@ public class PartecipationDAOImpl implements PartecipationDAO {
 		session.close();
 		return partecipation;
 	}
+	
+	@Override
+	public Partecipation getTeamPartecipation(Integer team, Integer contest) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Partecipation where contest_idcontest = :contest and team_idteam = :team");
+		query.setParameter("contest", contest);
+		query.setParameter("team", team);
+		Partecipation partecipation = (Partecipation) query.uniqueResult();
+		session.close();
+		return partecipation;
+	}
 
 	@Override
 	public List<Partecipation> getContestByTeam(Integer team) {

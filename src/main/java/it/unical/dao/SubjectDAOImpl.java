@@ -46,7 +46,7 @@ public class SubjectDAOImpl implements SubjectDAO {
 	@Override
 	public Subject get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from subject where id = :id");
+		Query query = session.createQuery("from Subject where id_subject = :id");
 		query.setParameter("id", id);
 		Subject subject = (Subject) query.uniqueResult();
 		session.close();

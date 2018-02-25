@@ -15,4 +15,6 @@ public interface PartecipationDAO {
 	Partecipation get(Integer id);
 
 	public List<Partecipation> getContestByTeam(Integer team);
+
+	Partecipation getTeamPartecipation(Integer team, Integer contest);
 }

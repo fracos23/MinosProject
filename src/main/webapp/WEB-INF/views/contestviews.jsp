@@ -56,14 +56,25 @@ h2 {
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 								<h4 class="modal-title">Con quale Team vuoi iscriverti?</h4>
 							</div>
-							<c:forEach items="${teams}" var="team">
-									<div class="team">
-										<div class="team">
-											<a>${team.name}</a>
+	
+						<input type="hidden" name="contestrequested" value="${contest}">Contest Id: ${contest}</input>
+							<form:form class="navbar-form form-inline" action="subscribe" method="post"
+						modelAttribute="subscribeForm">
+						<div class="form-group">
+							<div>Nome del Team:</div>
+							<input type="text" class="form-control" name="team" placeholder="Nome Team">
+							<div>Id contest:</div>
+							<input class="form-control" name="contest" value="${contest}" readonly>
+						</div><br>
+						
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Iscrivi" />
+						</div>
+					</form:form>
+						</div>
 										</div>
 									</div>
-								</c:forEach>
-						</div>
-					</div>
-				</div>
+								
+						
+				
 </body>
