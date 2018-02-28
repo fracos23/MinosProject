@@ -24,8 +24,8 @@ public class Problem
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "pdf")
-	private String pdf;
+	@Column(name = "test")
+	private byte[] test;
 	
 	@Column(name = "timelimit")
 	private Float timelimit;
@@ -33,8 +33,8 @@ public class Problem
 	@Column(name = "rankable")
 	private String rankable;
 	
-	@Column(name = "url_image")
-	private String url_image;
+	@Column(name = "sol")
+	private byte[] sol;
 	
 	@Column(name = "description")
 	private String description;
@@ -51,10 +51,10 @@ public class Problem
 	{
 		this.id_problem = DatabaseHandler.NO_ID;
 		this.name = null;
-		this.pdf = null;
+		this.test = null;
 		this.timelimit = null;
 		this.rankable = null;
-		this.url_image = null;
+		this.sol = null;
 		this.description = null;
 	}
 
@@ -74,12 +74,12 @@ public class Problem
 		this.name = name;
 	}
 
-	public String getPdf() {
-		return pdf;
+	public byte[] getTest() {
+		return test;
 	}
 
-	public void setPdf(String pdf) {
-		this.pdf = pdf;
+	public void setTest(byte[] test) {
+		this.test = test;
 	}
 
 	public Float getTimelimit() {
@@ -98,12 +98,12 @@ public class Problem
 		this.rankable = rankable;
 	}
 
-	public String getUrl_image() {
-		return url_image;
+	public byte[] getSol() {
+		return sol;
 	}
 
-	public void setUrl_image(String url_image) {
-		this.url_image = url_image;
+	public void setSol(byte[] sol) {
+		this.sol = sol;
 	}
 
 	public String getDescription() {

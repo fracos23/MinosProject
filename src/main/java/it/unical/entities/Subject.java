@@ -28,8 +28,8 @@ public class Subject
 	private String password;
 
 	@ManyToOne
-	@JoinColumn(name = "id_professor")
-	private User id_professor;
+	@JoinColumn(name = "user_professor")
+	private User professor;
 	
 	@OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -39,7 +39,7 @@ public class Subject
 	{
 		this.subjectId = null;
 		this.name = null;
-		this.id_professor = null;
+		this.professor = null;
 		
 	}
 
@@ -60,11 +60,11 @@ public class Subject
 	}
 
 	public User getId_professor() {
-		return id_professor;
+		return professor;
 	}
 
-	public void setId_professor(User id_professor) {
-		this.id_professor = id_professor;
+	public void setId_professor(User professor) {
+		this.professor = professor;
 	}
 	
 	public String getPassword() {

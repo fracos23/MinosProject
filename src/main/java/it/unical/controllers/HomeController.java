@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 
 import it.unical.dao.ContestDAO;
+import it.unical.dao.JuryDAO;
+import it.unical.dao.JuryMemberDAO;
+import it.unical.dao.JuryMemberDAOImpl;
 import it.unical.dao.MembershipDAO;
 import it.unical.dao.PartecipationDAO;
 import it.unical.dao.RegistrationDAO;
@@ -25,13 +28,19 @@ import it.unical.dao.SubmitDAO;
 import it.unical.dao.TeamDAO;
 import it.unical.dao.UserDAO;
 import it.unical.entities.Contest;
+import it.unical.entities.Jury;
+import it.unical.entities.JuryMember;
 import it.unical.entities.Membership;
 import it.unical.entities.Partecipation;
 import it.unical.entities.Registration;
 import it.unical.entities.Subject;
+import it.unical.entities.SubjectId;
 import it.unical.entities.Submit;
 import it.unical.entities.Team;
 import it.unical.entities.User;
+import it.unical.forms.AddContestForm;
+import it.unical.forms.AddSubjectForm;
+import it.unical.forms.AddTeamForm;
 import it.unical.forms.SearchForm;
 import it.unical.utils.SessionUtils;
 
@@ -62,6 +71,8 @@ public class HomeController {
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
 		
+		//carica attributi utente se è studente
+		if(!user.isProfessor()) {
 		MembershipDAO membershipDAO = (MembershipDAO) context.getBean("membershipDAO");
 		List<Membership> memberships = membershipDAO.getTeamByStudent(SessionUtils.getUserIdFromSessionOrNull(session));
 		TeamDAO teamDAO = (TeamDAO) context.getBean("teamDAO");
@@ -102,6 +113,42 @@ public class HomeController {
 		model.addAttribute("subjects", subjects);
 		model.addAttribute("submits", submits);
 		model.addAttribute("contests", contests);
+		}
+		//carica attributi utente se è professore
+		else
+		{
+			SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
+			List<Subject> subjects = subjectDAO.getAllSubjectFromProfessor(user.getId());
+			
+			ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
+			ArrayList<Contest> contests = new ArrayList<Contest>(10);
+			for(int i=0; i<subjects.size(); i++)
+			{
+				int size = contestDAO.getContestBySubject(subjects.get(i).getSubjectId().getId_subject(), Integer.parseInt(subjects.get(i).getSubjectId().getYear())).size();
+				for(int j=0; j< size; j++)
+				{
+					contests.add(contestDAO.getContestBySubject(subjects.get(i).getSubjectId().getId_subject(), Integer.parseInt(subjects.get(i).getSubjectId().getYear())).get(j));
+				}
+			}
+			
+			JuryMemberDAO juryMemberDAO = (JuryMemberDAO) context.getBean("jurymemberDAO");
+			List<JuryMember> juries = juryMemberDAO.getJurysFromProfessor(user.getId());
+			ArrayList<Contest> contestJury = new ArrayList<Contest>(juries.size());
+			logger.info("contest con giuria   "+juries.size());
+			for(int i=0; i<juries.size(); i++)
+			{
+				for(int j=0; j<contestDAO.getContestByJury(juries.get(i).getJury().getId_jury()).size(); j++)
+					{contestJury.add(contestDAO.getContestByJury(juries.get(i).getJury().getId_jury()).get(j));
+
+					}
+			}
+				//contestJury.add(contestDAO.getContestByJury(juries.get(i).getJury().getId_jury()));
+			
+			model.addAttribute(MODEL_ATTRIBUTE_USER, user);
+			model.addAttribute("subjects", subjects);
+			model.addAttribute("contests", contests);
+			model.addAttribute("contestjuries", contestJury);
+		}
 		
 	}
 	
@@ -156,7 +203,56 @@ public class HomeController {
 
 		return "resultpage";
 	}
+	
+	@RequestMapping(value = "/addSubject", method = RequestMethod.POST)
+	public String addSubject(@ModelAttribute("addSubjectForm") AddSubjectForm form, HttpSession session, Model model) {
+		setAccountAttribute(session, model);
+		
+		//controllo se il corso esiste già
+		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
+		if(form.getName()!= "")
+		{SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
+		Subject subject = new Subject();
+		SubjectId subjectId = new SubjectId();
+		subjectId.setId_subject(Integer.parseInt(form.getId()));
+		subjectId.setYear(form.getYear());
+		subject.setSubjectId(subjectId);
+		subject.setName(form.getName());
+		subject.setPassword(form.getPassword());
+		subject.setId_professor(user);
+		subjectDAO.create(subject);
+		
+		return "redirect:/";}
+		else return "redirect:/";
+	}
+	
 
+	@RequestMapping(value = "/addContest", method = RequestMethod.POST)
+	public String addContest(@ModelAttribute("addContestForm") AddContestForm form, HttpSession session, Model model) {
+		setAccountAttribute(session, model);
+		
+		//controllo se il corso esiste già
+		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
+		
+		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
+		Contest contest = new Contest();
+		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
+		Subject subject = subjectDAO.get(Integer.parseInt(form.getSubjectId()));
+		JuryDAO juryDAO = (JuryDAO) context.getBean("juryDAO");
+		Jury jury = juryDAO.get(Integer.parseInt(form.getJury()));
+		
+		contest.setName(form.getName());
+		contest.setSubject(subject);
+		contest.setJury(jury);
+		contest.setDeadline(""+form.getYear()+"/"+form.getMonth()+"/"+form.getDay());
+		contestDAO.create(contest);
+		return "redirect:/";
+		
+	}
+	
+	
 	private void setAccountAttribute(HttpSession session, Model model) {
 		if (SessionUtils.isUser(session)) {
 			UserDAO userDAO = (UserDAO) context.getBean("userDAO");

@@ -47,6 +47,10 @@
 	<bean id="juryDAO" class="it.unical.dao.JuryDAOImpl">
 		<property name="databaseHandler" ref="databaseHandler" />
 	</bean>
+	
+	<bean id="jurymemberDAO" class="it.unical.dao.JuryMemberDAOImpl">
+		<property name="databaseHandler" ref="databaseHandler" />
+	</bean>
 
 	<bean id="membershipDAO" class="it.unical.dao.MembershipDAOImpl">
 		<property name="databaseHandler" ref="databaseHandler" />

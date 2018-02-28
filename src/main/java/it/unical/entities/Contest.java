@@ -40,7 +40,7 @@ public class Contest
 		private Subject subject;
 		
 		@ManyToOne
-		@JoinColumn(name = "jury_id")
+		@JoinColumn(name = "id_jury")
 		private Jury jury;
 		
 		public Contest()

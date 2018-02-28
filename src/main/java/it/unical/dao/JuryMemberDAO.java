@@ -1,5 +1,7 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import it.unical.entities.JuryMember;
 
 public interface JuryMemberDAO {
@@ -11,4 +13,6 @@ public interface JuryMemberDAO {
 	public void update(JuryMember juryMember);
 
 	JuryMember get(Integer id);
+
+	List<JuryMember> getJurysFromProfessor(Integer professor);
 }

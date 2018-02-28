@@ -17,4 +17,6 @@ public interface SubjectDAO {
 	public List<Subject> getAll();
 	
 	Subject get(String name);
+
+	List<Subject> getAllSubjectFromProfessor(Integer professor);
 }

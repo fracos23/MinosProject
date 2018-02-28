@@ -1,9 +1,12 @@
 package it.unical.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import it.unical.entities.JuryMember;
+import it.unical.entities.Subject;
 
 @SuppressWarnings("unused")
 public class JuryMemberDAOImpl implements JuryMemberDAO {
@@ -46,5 +49,16 @@ public class JuryMemberDAOImpl implements JuryMemberDAO {
 		JuryMember juryMember = (JuryMember) query.uniqueResult();
 		session.close();
 		return juryMember;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<JuryMember> getJurysFromProfessor(Integer professor) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from JuryMember where user_iduser = :professor");
+		query.setParameter("professor", professor);
+		List<JuryMember> juries = (List<JuryMember>) query.list();
+		session.close();
+		return juries;
 	}
 }

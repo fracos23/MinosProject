@@ -15,4 +15,8 @@ public interface SubmitDAO {
 	Submit get(Integer id);
 
 	public List<Submit> getAllSubmitByTeam(Integer team);
+	
+	public List<Submit> getAllSubmitByProblem(Integer problem);
+
+	void insert(Submit submit);
 }

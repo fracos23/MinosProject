@@ -51,6 +51,7 @@ public class ContestController {
 		setAccountAttribute(session, model);
 		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
 		Contest contest = contestDAO.getContestByName(name);
+		
 		MembershipDAO membershipDAO = (MembershipDAO) context.getBean("membershipDAO");
 		List<Membership> memberships = membershipDAO.getTeamByStudent(SessionUtils.getUserIdFromSessionOrNull(session));
 		ArrayList<Team> teams = new ArrayList<Team>(memberships.size());
@@ -60,6 +61,7 @@ public class ContestController {
 		}	
 		ProblemDAO problemDAO = (ProblemDAO) context.getBean("problemDAO");
 		List<Problem> problems = problemDAO.getProblemOfAContest(contest.getIdcontest());
+		logger.info("contesttttt "+problems.size());
 		model.addAttribute("teams", teams);
 		model.addAttribute("problems", problems);
 		model.addAttribute("contest", contest.getIdcontest());
@@ -84,8 +86,8 @@ public class ContestController {
 		{
 			logger.info("il team è già iscritto");
 			
-			model.addAttribute("name", subject.getName());
-			return "redirect:/contest?name="+subject.getName();
+			model.addAttribute("name", contest.getName());
+			return "redirect:/contest";
 		}
 		else
 		{

@@ -1,9 +1,14 @@
 package it.unical.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import it.unical.entities.Contest;
 import it.unical.entities.Problem;
@@ -60,4 +65,7 @@ public class ProblemDAOImpl implements ProblemDAO {
 		session.close();
 		return problems;
 	}
+	
+	
+	
 }

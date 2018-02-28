@@ -68,6 +68,16 @@ public class ContestDAOImpl implements ContestDAO {
 		session.close();
 		return contests;
 	}
+	
+	@Override
+	public List<Contest> getContestByJury(Integer jury) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Contest where id_jury= :jury");
+		query.setParameter("jury", jury);
+		List<Contest> contests = query.list();
+		session.close();
+		return contests;
+	}
 
 	@Override
 	public Contest getContestByName(String name) {

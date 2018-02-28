@@ -41,7 +41,7 @@ public class JuryDAOImpl implements JuryDAO {
 	@Override
 	public Jury get(Integer id) {
 		Session session = databaseHandler.getSessionFactory().openSession();
-		Query query = session.createQuery("from jury where id = :id");
+		Query query = session.createQuery("from Jury where id = :id");
 		query.setParameter("id", id);
 		Jury jury = (Jury) query.uniqueResult();
 		session.close();

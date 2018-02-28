@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import it.unical.entities.Registration;
 import it.unical.entities.Subject;
 import it.unical.entities.User;
 
@@ -53,6 +54,7 @@ public class SubjectDAOImpl implements SubjectDAO {
 		return subject;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subject> getAll() {
 		Session session = databaseHandler.getSessionFactory().openSession();
@@ -69,5 +71,16 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Subject subject = (Subject) query.uniqueResult();
 		session.close();
 		return subject;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Subject> getAllSubjectFromProfessor(Integer professor) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Subject where user_professor = :professor");
+		query.setParameter("professor", professor);
+		List<Subject> subjects = (List<Subject>) query.list();
+		session.close();
+		return subjects;
 	}
 }

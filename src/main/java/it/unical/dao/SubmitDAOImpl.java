@@ -64,4 +64,21 @@ public class SubmitDAOImpl implements SubmitDAO {
 		session.close();
 		return submits;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Submit> getAllSubmitByProblem(Integer problem) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Submit where id_problem = :problem");
+		query.setParameter("problem", problem);
+		List<Submit> submits = (List<Submit>) query.list();
+		session.close();
+		return submits;
+	}
+	
+	@Override
+	public void insert(Submit submit) {
+		databaseHandler.delete(submit);
+	}
+
 }

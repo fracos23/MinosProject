@@ -65,7 +65,6 @@ public class TeamController {
 		setAccountAttribute(session, model);
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 		User user = userDAO.get(SessionUtils.getUserIdFromSessionOrNull(session));
-		logger.info("current: "+user.getId());
 		User user1 = null;
 		User user2 = null;
 		User user3 = null;
