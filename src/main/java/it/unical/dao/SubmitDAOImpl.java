@@ -75,10 +75,18 @@ public class SubmitDAOImpl implements SubmitDAO {
 		session.close();
 		return submits;
 	}
-	
+
 	@Override
-	public void insert(Submit submit) {
-		databaseHandler.delete(submit);
+	public Submit getAllSubmitByProblemAndTeam(Integer problem, Integer team) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Submit where id_problem = :problem and id_team = :team");
+		query.setParameter("problem", problem);
+		query.setParameter("team", team);
+		Submit submit = (Submit) query.uniqueResult();
+		session.close();
+		return submit;
 	}
+	
+
 
 }

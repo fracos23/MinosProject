@@ -7,6 +7,9 @@
 <script type="text/javascript" src="resources/js/bootstrap.js"></script>
 
 <script type="text/javascript" src="resources/js/user/homeUser.js"></script>
+<style>
+.city {display:none}
+</style>
 
 <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
@@ -119,7 +122,7 @@
 				</a><div></div><br>
 				<a href="#" data-toggle="modal" data-target="#myModal3" class="btn btn-danger button-delete" data-toggle="tooltip" data-placement="bottom">
 					<span class="glyphicon glyphicon-plus"></span> Add Problem
-				</a>
+				</a><div></div><br>
 			</div>
 			</div>
 			<div class="col-xs-8 wrapper">
@@ -236,16 +239,27 @@
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 								<h4 class="modal-title">Inserisci Problema</h4>
 							</div>
+							<div class="w3-bar w3-border-bottom">
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, '1')">Problem 1</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, '2')">Problem 2</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, '3')">Problem 3</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, '4')">Problem 4</button>
+  </div>
+  							<div id="1" class="w3-container city">
 							<form:form class="navbar-form form-inline" action="addProblem" method="post"
 						modelAttribute="problemForm">
 						<div class="form-group">
-							<div>Id del subject:</div>
+						<input type="hidden" name="type" value="1"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
 							<input type="text" class="form-control" name="id" placeholder="Id Subject">
 						</div><br>
 						<div class="form-group">
 							<div>Nome problema:</div>
 							<input type="text" class="form-control" name="name" placeholder="Name">
 						</div><br>
+						<div>Insert TestCaseFile and SolutionFile</div>
 						<div class="form-group">
 							<div>Path TestCase:</div>
 							<input type="text" class="form-control" name="pathTest" placeholder="Path TestCase">
@@ -257,6 +271,106 @@
 						<div class="modal-footer">
 						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
 						</div>
+						</form:form>
+						</div>
+						<div id="2" class="w3-container city">
+						<form:form class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="2"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Subject">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Zip:</div>
+							<input type="text" class="form-control" name="pathZip" placeholder="Path Zip">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+						</form:form>
+						</div>
+						<div id="3" class="w3-container city">
+						<form:form class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="3"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Subject">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Algorithm:</div>
+							<input type="text" class="form-control" name="pathAlgorithm" placeholder="Path Algorithm">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+						</form:form>
+						</div>
+						<div id="4" class="w3-container city">
+						<form:form id="4" class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="4"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Subject">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Algorithm:</div>
+							<input type="text" class="form-control" name="pathAlgorithm" placeholder="Path Algorithm">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+					</form:form>
+					</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="myModal4" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Inserisci Problema</h4>
+							</div>
+							<form:form class="navbar-form form-inline" action="addProblem2" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Contest">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Dominio Applicativo:</div>
+							<input type="text" class="form-control" name="description" placeholder="Dominio Applicativo">
+						</div><br>
+						
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
 					</form:form>
 						</div>
 					</div>
@@ -264,5 +378,23 @@
 </c:otherwise>
 </c:choose>
 </body>
+
+<script>
+document.getElementsByClassName("tablink")[0].click();
+
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].classList.remove("w3-light-grey");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.classList.add("w3-light-grey");
+}
+</script>
 
 </html>

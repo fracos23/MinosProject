@@ -30,8 +30,8 @@ public class Problem
 	@Column(name = "timelimit")
 	private Float timelimit;
 	
-	@Column(name = "rankable")
-	private String rankable;
+	@Column(name = "type")
+	private String type;
 	
 	@Column(name = "sol")
 	private byte[] sol;
@@ -53,7 +53,7 @@ public class Problem
 		this.name = null;
 		this.test = null;
 		this.timelimit = null;
-		this.rankable = null;
+		this.type = null;
 		this.sol = null;
 		this.description = null;
 	}
@@ -90,12 +90,12 @@ public class Problem
 		this.timelimit = timelimit;
 	}
 
-	public String getRankable() {
-		return rankable;
+	public String getType() {
+		return type;
 	}
 
-	public void setRankable(String rankable) {
-		this.rankable = rankable;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public byte[] getSol() {
@@ -112,6 +112,14 @@ public class Problem
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Jury getJury() {
+		return jury;
+	}
+
+	public void setJury(Jury jury) {
+		this.jury = jury;
 	}
 
 	public Contest getId_contest() {

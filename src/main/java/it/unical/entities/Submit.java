@@ -42,7 +42,7 @@ public class Submit
 	private String info;
 	
 	@Column(name = "solution")
-	private String solution;
+	private byte[] solution;
 	
 	public Submit()
 	{
@@ -94,11 +94,11 @@ public class Submit
 		this.info = info;
 	}
 
-	public String getSolution() {
+	public byte[] getSolution() {
 		return solution;
 	}
 
-	public void setSolution(String solution) {
+	public void setSolution(byte[] solution) {
 		this.solution = solution;
 	}
 	
