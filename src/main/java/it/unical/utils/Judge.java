@@ -67,7 +67,9 @@ public class Judge
         System.out.println("Code started executing.");
         ProcessBuilder p;
         if (l.equals("java")) {
-            p = new ProcessBuilder("java", "Main", n);
+        	if(n != "")
+        		p = new ProcessBuilder("java", "Main", n);
+        	else p = new ProcessBuilder("java", "Main");
         } else if (l.equals("c")) {
             p = new ProcessBuilder("./Main");
         } else {

@@ -172,6 +172,63 @@ public class ProblemController {
 					
 					return "addProblemConfirmation";
 		}
+		
+		
+		case(3):{
+						String pathSol = path;
+						byte[] data2 = problem.getSol();
+						
+						pathSol = pathSol.replace("file:///", "/");
+						
+						File fileSolution = new File(pathSol);
+						byte[] fileData = new byte[(int) fileSolution.length()];
+						
+						pathSol = pathSol.replace("/Main.java", "");
+						
+						Judge judge = new Judge("java", team.getName());
+						
+						String result = judge.compile("java", team.getName(), pathSol);
+						
+						String strSolution = new String(data2, StandardCharsets.UTF_8);		
+						
+						if(result.equals("COMPILE_SUCCESS"))
+						{
+							result = judge.execute("java", "", 1000, pathSol);
+				
+							String match = judge.match(result, strSolution);
+							if(match.equals("RIGHT"))
+								{
+								logger.info("corretto");
+								if(submit != null)
+								{
+									submitDAO.delete(submit);
+									submit.setIdTeam(team);
+									submit.setProblem(problem);
+									submit.setInfo(problem.getName());
+									//set the score eventually here
+									submit.setSolution(fileData);
+									submitDAO.create(submit);
+									return "problemview";
+								}
+								else
+								{
+									submit = new Submit();
+									submit.setIdTeam(team);
+									submit.setProblem(problem);
+									submit.setInfo(problem.getName());
+									//set the score eventually here
+									submit.setSolution(fileData);
+									submitDAO.create(submit);
+									return "problemview";				}
+								}
+							else 
+								{
+								logger.info("errato");
+								return "redirect:/";
+								}
+						}
+						else return "redirect:/";
+			}
 	}
 		return "redirect:/";
 	
@@ -214,7 +271,7 @@ public class ProblemController {
 	}
 
 	@RequestMapping(value = "/addProblem", method = RequestMethod.POST)
-	public String addProblem(HttpSession session,@ModelAttribute AddProblemForm problemForm, Model model) throws FileNotFoundException {
+	public String addProblem(HttpSession session,@ModelAttribute AddProblemForm problemForm, Model model) throws IOException {
 		setAccountAttribute(session, model);
 		
 		ProblemDAO problemDAO = (ProblemDAO) context.getBean("problemDAO");
@@ -293,7 +350,40 @@ public class ProblemController {
 			return "redirect:/";
 			}
 		case(3):{
-				
+					String pathTest = problemForm.getPathAlgorithm();
+					
+					pathTest = pathTest.replace("file:///", "/");
+					File file1 = new File(pathTest.trim());
+					byte[] fileData1 = new byte[(int) file1.length()];
+					
+					try {
+					    FileInputStream fileInputStream1 = new FileInputStream(file1);
+					    fileInputStream1.read(fileData1);
+					    fileInputStream1.close();
+					} catch (Exception e) {
+					    e.printStackTrace();
+					    return "redirect:/";
+					}
+					
+					pathTest = pathTest.replace("/Main.java", "");
+					
+					Judge judge = new Judge("java", "");
+					
+					String result = judge.compile("java", "", pathTest);
+					
+					result = judge.execute("java", "", 1000, pathTest);
+					
+					byte[] solution = result.getBytes();
+					
+					problem.setName(problemForm.getName());
+					problem.setType(problemForm.getType());
+					problem.setId_contest(contest);
+					problem.setJury(contest.getJury());
+					problem.setTimelimit((float) 1000.0);
+					problem.setSol(solution);
+					problemDAO.create(problem);	
+					
+					return "redirect:/";		
 		}
 		}
 		return "redirect:/";
