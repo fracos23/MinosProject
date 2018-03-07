@@ -77,17 +77,21 @@ public class Judge
         }
         p.directory(new File(path));
        
-        p.redirectErrorStream(true);
+       // p.redirectErrorStream(true);
         //System.out.println("Current directory " + "/home/francesco/eclipse-workspace/testJudge/src/dir");
         
         String result=null;
 		try {
 
             Process pp = p.start(); 
+            InputStream error = pp.getErrorStream();
+           
             if (!pp.waitFor(timeInMillis, TimeUnit.MILLISECONDS)) {
                 return "Time Limit Excedeed";
             }
             int exitCode = pp.exitValue();
+            for (int i = 0; i < error.available(); i++) {
+                System.out.println("errore " + error.read());}
             System.out.println("Exit Value = " + pp.exitValue());
             BufferedReader reader = 
                     new BufferedReader(new InputStreamReader(pp.getInputStream()));
@@ -119,7 +123,7 @@ public class Judge
         try {
             System.out.println("Matching process started.");
             f1 = new File("/home/francesco/eclipse-workspace/testJudge/src/res/ris.txt");
-            System.out.println("Test output exists? [" + f1.exists() + "] Path=" + f1.getAbsolutePath());
+           // System.out.println("Test output exists? [" + f1.exists() + "] Path=" + f1.getAbsolutePath());
            // f2 = new File("/home/francesco/eclipse-workspace/testJudge/src/dir" + "/" + "out("+ user +").txt");
             //System.out.println("Output exists? [" + f2.exists() + "] Path=" + f2.getAbsolutePath());
             Reader inputString = new StringReader(result);

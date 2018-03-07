@@ -39,6 +39,17 @@ public class Problem
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "download")
+	private Integer download;
+	
+	public Integer getDownload() {
+		return download;
+	}
+
+	public void setDownload(Integer download) {
+		this.download = download;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "id_jury")
 	private Jury jury;

@@ -58,6 +58,7 @@ public class ContestDAOImpl implements ContestDAO {
 		return contests;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Contest> getContestBySubject(Integer subject, Integer year) {
 		Session session = databaseHandler.getSessionFactory().openSession();

@@ -2,7 +2,9 @@ package it.unical.controllers;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +24,7 @@ import it.unical.dao.JuryMemberDAO;
 import it.unical.dao.JuryMemberDAOImpl;
 import it.unical.dao.MembershipDAO;
 import it.unical.dao.PartecipationDAO;
+import it.unical.dao.ProblemDAO;
 import it.unical.dao.RegistrationDAO;
 import it.unical.dao.SubjectDAO;
 import it.unical.dao.SubmitDAO;
@@ -32,6 +35,7 @@ import it.unical.entities.Jury;
 import it.unical.entities.JuryMember;
 import it.unical.entities.Membership;
 import it.unical.entities.Partecipation;
+import it.unical.entities.Problem;
 import it.unical.entities.Registration;
 import it.unical.entities.Subject;
 import it.unical.entities.SubjectId;
@@ -92,7 +96,7 @@ public class HomeController {
 		}
 		
 		SubmitDAO submitDAO = (SubmitDAO) context.getBean("submitDAO");
-		ArrayList<Submit> submits = new ArrayList<Submit>(10); //da modificare il valore
+		ArrayList<Submit> submits = new ArrayList<Submit>(); 
 		for(int i=0; i<teams.size(); i++)
 		{
 			for(int j=0; j<submitDAO.getAllSubmitByTeam((teams.get(i).getId())).size(); j++)
@@ -100,7 +104,7 @@ public class HomeController {
 		}
 		
 		PartecipationDAO partecipationDAO = (PartecipationDAO) context.getBean("partecipationDAO");
-		ArrayList<Partecipation> contests = new ArrayList<Partecipation>(10); //da modificare il valore
+		ArrayList<Partecipation> contests = new ArrayList<Partecipation>(); 
 		for(int i=0; i<teams.size(); i++)
 		{
 			for(int j=0; j<partecipationDAO.getContestByTeam(teams.get(i).getId()).size(); j++)
@@ -121,7 +125,7 @@ public class HomeController {
 			List<Subject> subjects = subjectDAO.getAllSubjectFromProfessor(user.getId());
 			
 			ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
-			ArrayList<Contest> contests = new ArrayList<Contest>(10);
+			ArrayList<Contest> contests = new ArrayList<Contest>();
 			for(int i=0; i<subjects.size(); i++)
 			{
 				int size = contestDAO.getContestBySubject(subjects.get(i).getSubjectId().getId_subject(), Integer.parseInt(subjects.get(i).getSubjectId().getYear())).size();
@@ -250,6 +254,33 @@ public class HomeController {
 		contestDAO.create(contest);
 		return "redirect:/";
 		
+	}
+	
+	@RequestMapping(value = "/searchProblem", method = RequestMethod.POST)
+	public String searchProblem(@ModelAttribute SearchForm form, HttpSession session, Model model) {
+
+		
+		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
+		Contest contest;
+		ProblemDAO problemDAO = (ProblemDAO) context.getBean("problemDAO");
+		List<Problem> problems = problemDAO.getByName(form.getWord());
+		SubmitDAO submitDAO = (SubmitDAO) context.getBean("submitDAO");
+		List<Submit> submit;
+		Map<String,List<Submit>> submits = new HashMap<String,List<Submit>>();
+		
+		for(int i=0; i<problems.size(); i++)
+		{
+			submit = submitDAO.getAllSubmitByProblem(problems.get(i).getId_problem());
+			contest = contestDAO.get(problems.get(i).getId_contest().getIdcontest());
+			submits.put(contest.getName(), submit);
+			
+		}
+		
+		setAccountAttribute(session, model);
+		model.addAttribute("submits", submits);
+		model.addAttribute("word", form.getWord());
+
+		return "submitResults";
 	}
 	
 	

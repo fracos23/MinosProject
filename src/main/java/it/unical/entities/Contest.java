@@ -21,7 +21,10 @@ public class Contest
 	 	@Column(name = "idcontest")
 		private Integer idcontest;
 	 	
-	 	@Column(name = "name")
+	 	@Column(name = "open")
+		private Integer open;
+
+		@Column(name = "name")
 		private String name;
 		
 		@Column(name = "deadline")
@@ -74,6 +77,14 @@ public class Contest
 
 		public String getName() {
 			return name;
+		}
+		
+		public Integer getOpen() {
+			return open;
+		}
+
+		public void setOpen(Integer open) {
+			this.open = open;
 		}
 
 		public void setName(String name) {

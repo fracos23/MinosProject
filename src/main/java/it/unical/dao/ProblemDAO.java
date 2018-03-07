@@ -17,4 +17,6 @@ public interface ProblemDAO {
 
 	List<Problem> getProblemOfAContest(Integer contest);
 
+	public List<Problem> getByName(String word);
+
 	}

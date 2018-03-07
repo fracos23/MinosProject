@@ -113,7 +113,19 @@
 					<div class="name-container">${user.name}<span> </span>${user.surname}</div>
 					<div class="username-container">${user.id}</div>
 				</div>
+				<form:form id="navbar-search-form" class="navbar-form form-inline" action="searchProblem"
+						method="POST" modelAttribute="searchForm">
+						<div class="form-group">
+							<div class="input-group">
+								<input type="text" class="form-control" name="word" placeholder="Search Problem" />
+								<div class="input-group-addon navbar-search-submit">
+									<span class="glyphicon glyphicon-search"></span>
+								</div>
+							</div>
+						</div>
+					</form:form>
 				<div class="col-md-5">
+				
 				<a href="#" data-toggle="modal" data-target="#myModal1" class="btn btn-primary button-add" data-toggle="tooltip" data-placement="bottom">
 					<span class="glyphicon glyphicon-plus"></span> Add Subject
 				</a><div></div><br>
@@ -336,6 +348,10 @@
 						<div class="form-group">
 							<div>Path Algorithm:</div>
 							<input type="text" class="form-control" name="pathAlgorithm" placeholder="Path Algorithm">
+						</div><br>
+						<div class="form-group">
+							<div>Domain:</div>
+						<input type="radio" name="domain" value="Array Integer" checked> Array Integer<br>
 						</div><br>
 						<div class="modal-footer">
 						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />

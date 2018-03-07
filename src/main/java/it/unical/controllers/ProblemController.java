@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -229,6 +230,66 @@ public class ProblemController {
 						}
 						else return "redirect:/";
 			}
+		
+		case(4):{
+						String pathSol = path;
+						byte[] data = problem.getTest();
+						byte[] data2 = problem.getSol();
+						
+						pathSol = pathSol.replace("file:///", "/");
+						
+						File fileSolution = new File(pathSol);
+						byte[] fileData = new byte[(int) fileSolution.length()];
+						
+						pathSol = pathSol.replace("/Main.java", "");
+						
+						Judge judge = new Judge("java", team.getName());
+						
+						String result = judge.compile("java", team.getName(), pathSol);
+						
+						String strTestCase = new String(data, StandardCharsets.UTF_8);
+						System.out.println("Gli passo questo test case: "+strTestCase);
+						String strSolution = new String(data2, StandardCharsets.UTF_8);		
+						
+						if(result.equals("COMPILE_SUCCESS"))
+						{
+							result = judge.execute("java", strTestCase, 1000, pathSol);
+				
+							String match = judge.match(result, strSolution);
+							if(match.equals("RIGHT"))
+								{
+								logger.info("corretto");
+								if(submit != null)
+								{
+									submitDAO.delete(submit);
+									submit.setIdTeam(team);
+									submit.setProblem(problem);
+									submit.setInfo(problem.getName());
+									//set the score eventually here
+									submit.setSolution(fileData);
+									submitDAO.create(submit);
+									return "problemview";
+								}
+								else
+								{
+									submit = new Submit();
+									submit.setIdTeam(team);
+									submit.setProblem(problem);
+									submit.setInfo(problem.getName());
+									//set the score eventually here
+									submit.setSolution(fileData);
+									submitDAO.create(submit);
+									return "problemview";				}
+								}
+							else 
+								{
+								logger.info("errato");
+								return "redirect:/";
+								}
+						}
+						else return "redirect:/";
+		}
+		
 	}
 		return "redirect:/";
 	
@@ -385,28 +446,63 @@ public class ProblemController {
 					
 					return "redirect:/";		
 		}
+		
+		case(4):{
+					
+					String pathTest = problemForm.getPathAlgorithm();
+					
+					pathTest = pathTest.replace("file:///", "/");
+					File file1 = new File(pathTest.trim());
+					byte[] fileData1 = new byte[(int) file1.length()];
+					
+					try {
+					    FileInputStream fileInputStream1 = new FileInputStream(file1);
+					    fileInputStream1.read(fileData1);
+					    fileInputStream1.close();
+					} catch (Exception e) {
+					    e.printStackTrace();
+					    return "redirect:/";
+					}
+					
+					pathTest = pathTest.replace("/Main.java", "");
+					
+					Judge judge = new Judge("java", "");
+					String domain = problemForm.getDomain();
+
+					String test = null;
+					
+					if(domain.equals("Array Integer"))
+					{
+						test = generateArray();
+					}
+					
+				//	String strTestCase = new String(test, StandardCharsets.UTF_8);
+					
+					String result = judge.compile("java", "", pathTest);
+					
+					
+					
+					result = judge.execute("java", test, 1000, pathTest);
+					logger.info(result);
+					if(result.equals("RUN_ERROR"))
+						return "redirect:/";
+					byte[] solution = result.getBytes();
+					
+					System.out.println(result);
+					
+					problem.setName(problemForm.getName());
+					problem.setType(problemForm.getType());
+					problem.setId_contest(contest);
+					problem.setJury(contest.getJury());
+					problem.setTimelimit((float) 1000.0);
+					problem.setTest(test.getBytes());
+					problem.setSol(solution);
+					problemDAO.create(problem);	
+		}
 		}
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "/addProblem2", method = RequestMethod.POST)
-	public String addProblem2(HttpSession session,@ModelAttribute AddProblemForm problemForm, Model model) throws FileNotFoundException {
-		setAccountAttribute(session, model);
-		
-		ProblemDAO problemDAO = (ProblemDAO) context.getBean("problemDAO");
-		Problem problem= new Problem();
-		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
-		Contest contest = contestDAO.get(Integer.parseInt(problemForm.getId()));
-		problem.setName(problemForm.getName());
-		problem.setType("2");
-		problem.setDescription(problemForm.getDescription());
-		problem.setId_contest(contest);
-		problem.setJury(contest.getJury());
-		problem.setTimelimit((float) 1000.0);
-		problemDAO.create(problem);	
-		return "redirect:/";
-		
-	}
 	
 	private void setAccountAttribute(HttpSession session, Model model) {
 		 if (SessionUtils.isUser(session)) {
@@ -495,6 +591,26 @@ public class ProblemController {
         return info;
 	}
 	
+	
+	private String generateArray()
+	{
+		int cont = 0;
+		String ris=""; 
+		while(cont<50)
+		{
+	    Random random = new Random();
+
+	    int n = random.nextInt(20);
+	    for (int i = 0; i < n; i++)
+	    {
+	        ris = ris+random.nextInt(70)+" ";
+	    }
+	    	ris = ris+"\n";
+	    	cont++;
+		}
+		System.out.println(ris);
+		return ris;
+	}
 	
 	
 }

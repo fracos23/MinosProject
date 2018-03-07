@@ -56,6 +56,17 @@ public class ProblemDAOImpl implements ProblemDAO {
 		return problem;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Problem> getByName(String name) {
+		Session session = databaseHandler.getSessionFactory().openSession();
+		Query query = session.createQuery("from Problem where name = :name");
+		query.setParameter("name", name);
+		List<Problem> problem =  query.list();
+		session.close();
+		return problem;
+	}
+	
 	@Override
 	public List<Problem> getProblemOfAContest(Integer contest) {
 		Session session = databaseHandler.getSessionFactory().openSession();
