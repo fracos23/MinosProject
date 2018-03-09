@@ -21,8 +21,8 @@ public class Contest
 	 	@Column(name = "idcontest")
 		private Integer idcontest;
 	 	
-	 	@Column(name = "open")
-		private Integer open;
+	 	@Column(name = "restriction")
+		private Integer restriction;
 
 		@Column(name = "name")
 		private String name;
@@ -79,12 +79,12 @@ public class Contest
 			return name;
 		}
 		
-		public Integer getOpen() {
-			return open;
+		public Integer getRestriction() {
+			return restriction;
 		}
 
-		public void setOpen(Integer open) {
-			this.open = open;
+		public void setRestriction(Integer restriction) {
+			this.restriction = restriction;
 		}
 
 		public void setName(String name) {

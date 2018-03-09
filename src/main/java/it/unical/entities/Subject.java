@@ -26,6 +26,33 @@ public class Subject
 	
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "url")
+	private String url;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public User getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(User professor) {
+		this.professor = professor;
+	}
+
+	public List<Contest> getContest() {
+		return contest;
+	}
+
+	public void setContest(List<Contest> contest) {
+		this.contest = contest;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "user_professor")
@@ -40,6 +67,7 @@ public class Subject
 		this.subjectId = null;
 		this.name = null;
 		this.professor = null;
+		this.url = null;
 		
 	}
 

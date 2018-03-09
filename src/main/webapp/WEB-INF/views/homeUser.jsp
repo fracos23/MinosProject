@@ -221,16 +221,20 @@
 						<div class="form-group">
 							<div>Nome del Contest:</div>
 							<input type="text" class="form-control" name="name" placeholder="Name">
-						</div><br>
-							
+						</div><br>							
 						<div class="form-group">
 							<div>Corso:</div>
 							<input type="text" name="subjectId" placeholder="Id Subject">
 						</div><br>
 						<div class="form-group">
-							<div>Corso:</div>
+							<div>Giuria:</div>
 							<input type="text" name="jury" placeholder="Id Jury">
 						</div><br>
+						<div class="form-group">
+							<div>Iscrizione:</div>
+						<input type="radio" name="restriction" value="1" checked>Solo Iscritti<br>
+						<input type="radio" name="restriction" value="0" >Tutti<br>
+						</div><br>						
 						<div class="form-group">
 							<div>Data Scadenza:</div>
 							<input type="text" maxlength="2" class="form-control" name="day" placeholder="dd">

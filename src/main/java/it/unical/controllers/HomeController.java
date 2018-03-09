@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import it.unical.dao.ContestDAO;
@@ -46,6 +47,7 @@ import it.unical.forms.AddContestForm;
 import it.unical.forms.AddSubjectForm;
 import it.unical.forms.AddTeamForm;
 import it.unical.forms.SearchForm;
+import it.unical.forms.SignInForm;
 import it.unical.utils.SessionUtils;
 
 
@@ -70,6 +72,14 @@ public class HomeController {
 
 		return "login";
 	}
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+	public String signIn(@ModelAttribute SignInForm form, HttpSession session, Model model) {
+			UserDAO userDAO = (UserDAO) context.getBean("userDAO");
+			User user = new User(Integer.parseInt(form.getId()), form.getName(), form.getSurname(), form.getPassword(), form.getEmail(), false);
+			userDAO.create(user);
+			return "redirect:/";
+		}
 
 	private void populateUserModel(HttpSession session, Model model) {
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
@@ -233,7 +243,7 @@ public class HomeController {
 	
 
 	@RequestMapping(value = "/addContest", method = RequestMethod.POST)
-	public String addContest(@ModelAttribute("addContestForm") AddContestForm form, HttpSession session, Model model) {
+	public String addContest(@ModelAttribute AddContestForm addContestForm,@RequestParam String restriction, HttpSession session, Model model) {
 		setAccountAttribute(session, model);
 		
 		//controllo se il corso esiste già
@@ -243,14 +253,17 @@ public class HomeController {
 		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
 		Contest contest = new Contest();
 		SubjectDAO subjectDAO = (SubjectDAO) context.getBean("subjectDAO");
-		Subject subject = subjectDAO.get(Integer.parseInt(form.getSubjectId()));
+		Subject subject = subjectDAO.get(Integer.parseInt(addContestForm.getSubjectId()));
 		JuryDAO juryDAO = (JuryDAO) context.getBean("juryDAO");
-		Jury jury = juryDAO.get(Integer.parseInt(form.getJury()));
+		Jury jury = juryDAO.get(Integer.parseInt(addContestForm.getJury()));
 		
-		contest.setName(form.getName());
+		
+		
+		contest.setName(addContestForm.getName());
+		contest.setRestriction(Integer.parseInt(restriction));
 		contest.setSubject(subject);
 		contest.setJury(jury);
-		contest.setDeadline(""+form.getYear()+"/"+form.getMonth()+"/"+form.getDay());
+		contest.setDeadline(""+addContestForm.getYear()+"/"+addContestForm.getMonth()+"/"+addContestForm.getDay());
 		contestDAO.create(contest);
 		return "redirect:/";
 		

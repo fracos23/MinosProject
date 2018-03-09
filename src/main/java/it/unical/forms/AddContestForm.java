@@ -1,7 +1,5 @@
 package it.unical.forms;
 
-import it.unical.entities.SubjectId;
-
 public class AddContestForm {
 	
 	private String name;
@@ -9,6 +7,7 @@ public class AddContestForm {
 	private String month;
 	private String day;
 	private String rankable;
+
 	private String jury;
 	public String getJury() {
 		return jury;
