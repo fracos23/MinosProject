@@ -40,12 +40,15 @@ import it.unical.entities.Membership;
 import it.unical.entities.Problem;
 import it.unical.entities.Submit;
 import it.unical.entities.Team;
+import it.unical.entities.Testcase;
 import it.unical.entities.User;
 import it.unical.forms.AddProblemForm;
 import it.unical.forms.SubmitForm;
 import it.unical.forms.SubscribeForm;
+import it.unical.utils.ArrayTest;
 import it.unical.utils.Judge;
 import it.unical.utils.SessionUtils;
+import it.unical.utils.TestCase;
 
 @Controller
 public class ProblemController {
@@ -471,9 +474,11 @@ public class ProblemController {
 
 					String test = null;
 					
+					
 					if(domain.equals("Array Integer"))
 					{
-						test = generateArray();
+						TestCase testcase = new ArrayTest();
+						test = testcase.generate();
 					}
 					
 				//	String strTestCase = new String(test, StandardCharsets.UTF_8);
@@ -592,25 +597,7 @@ public class ProblemController {
 	}
 	
 	
-	private String generateArray()
-	{
-		int cont = 0;
-		String ris=""; 
-		while(cont<50)
-		{
-	    Random random = new Random();
-
-	    int n = random.nextInt(20);
-	    for (int i = 0; i < n; i++)
-	    {
-	        ris = ris+random.nextInt(70)+" ";
-	    }
-	    	ris = ris+"\n";
-	    	cont++;
-		}
-		System.out.println(ris);
-		return ris;
-	}
+	 
 	
 	
 }

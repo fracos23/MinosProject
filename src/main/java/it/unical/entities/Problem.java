@@ -41,14 +41,6 @@ public class Problem
 	
 	@Column(name = "download")
 	private Integer download;
-	
-	public Integer getDownload() {
-		return download;
-	}
-
-	public void setDownload(Integer download) {
-		this.download = download;
-	}
 
 	@ManyToOne
 	@JoinColumn(name = "id_jury")
@@ -71,6 +63,14 @@ public class Problem
 
 	public Integer getId_problem() {
 		return id_problem;
+	}
+	
+	public Integer getDownload() {
+		return download;
+	}
+
+	public void setDownload(Integer download) {
+		this.download = download;
 	}
 
 	public void setId_problem(Integer id_problem) {
