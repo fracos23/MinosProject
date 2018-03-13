@@ -132,12 +132,14 @@ public class Judge
             b2 = new BufferedReader(inputString);
 
             String s1 = "", s2 = "", temp = "";
+            System.out.println("Risultato s2:");
             while ((temp = b2.readLine()) != null) {
                 s2 += temp.trim() + "\n";  
                 
                
             }
             System.out.println(s2);
+            System.out.println("Risultato s1:");
            // System.out.println(f2.getName() + ":\n" + s2);
             while ((temp = b1.readLine()) != null) {
                 s1 += temp.trim() + "\n";

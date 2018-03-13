@@ -4,20 +4,16 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpSession;
 
-import org.hsqldb.jdbc.JDBCBlobFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +36,8 @@ import it.unical.entities.Membership;
 import it.unical.entities.Problem;
 import it.unical.entities.Submit;
 import it.unical.entities.Team;
-import it.unical.entities.Testcase;
 import it.unical.entities.User;
 import it.unical.forms.AddProblemForm;
-import it.unical.forms.SubmitForm;
-import it.unical.forms.SubscribeForm;
 import it.unical.utils.ArrayTest;
 import it.unical.utils.Judge;
 import it.unical.utils.SessionUtils;
@@ -356,7 +349,6 @@ public class ProblemController {
 				byte[] fileData1 = new byte[(int) file1.length()];
 				File file2 = new File(pathSol);
 				byte[] fileData2 = new byte[(int) file2.length()];
-				logger.info(pathTest);
 				try {
 				    FileInputStream fileInputStream1 = new FileInputStream(file1);
 				    fileInputStream1.read(fileData1);
@@ -481,7 +473,6 @@ public class ProblemController {
 						test = testcase.generate();
 					}
 					
-				//	String strTestCase = new String(test, StandardCharsets.UTF_8);
 					
 					String result = judge.compile("java", "", pathTest);
 					
