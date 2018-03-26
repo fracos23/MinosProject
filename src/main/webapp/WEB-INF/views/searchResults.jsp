@@ -103,7 +103,7 @@
 									<div class="panel-body">
 										<ul class="list-group">
 											<c:forEach items="${UserResult}" var="user">
-												<li class="list-group-item">${user.id}${user.surname}
+												<li class="list-group-item">${user.id} ${user.surname}
 													${user.name}</li>
 											</c:forEach>
 										</ul>
@@ -136,9 +136,10 @@
 
 																</div>
 															</div>
-														</form:form>
-														<button class="btn btn-primary button-add"
+															<button class="btn btn-primary button-add"
 															data-toggle="tooltip">Iscriviti</button>
+														</form:form>
+														
 													</div>
 												</li>
 

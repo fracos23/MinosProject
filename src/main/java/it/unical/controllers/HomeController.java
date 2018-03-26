@@ -76,8 +76,7 @@ public class HomeController {
 		UserDAO userDAO = (UserDAO) context.getBean("userDAO");
 		User user = new User(Integer.parseInt(form.getId()), form.getName(), form.getSurname(), form.getPassword(),
 				form.getEmail(), false);
-		userDAO.create(user);
-		return "redirect:/";
+		userDAO.create(user);		return "redirect:/";
 	}
 
 	private void populateUserModel(HttpSession session, Model model) {

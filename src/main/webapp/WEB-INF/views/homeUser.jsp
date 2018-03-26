@@ -124,7 +124,7 @@
 						<div class="col-sm-7">
 							<div class="card">
 								<div class="header">
-									<h2>CONTEST A CUI SEI ISCRITTO</h2>
+									<h2>CONTEST SUBSCRIBED</h2>
 								</div>
 								<div class="body">
 									<div class="table-responsive">
@@ -161,7 +161,7 @@
 						<div class="col-sm-5">
 							<div class="card">
 								<div class="header">
-									<h2>CORSI CHE SEGUI</h2>
+									<h2>COURSES FOLLOWED</h2>
 								</div>
 								<div class="body">
 									<div class="table-responsive">
@@ -260,10 +260,9 @@
 														<td>${subject.subjectId.id_subject}</td>
 														<td>${subject.subjectId.year}</td>
 														<td>
-															<button onclick="myFunction()" class="dropbtn">Dropdown</button>
+															<button onclick="myFunction()" class="dropbtn">${subject.password}</button>
 															<div id="myDropdown" class="dropdown-content">
-																<a href="javascript:void(0);">Home</a> <a href="javascript:void(0);">About</a>
-																<a href="javascript:void(0);">Contact</a>
+																<a href="javascript:void(0);">Reimposta</a>
 															</div>
 														</td>
 													</tr>
@@ -430,41 +429,110 @@
 							<form role="form">
 								<div class="tab-content" style="margin: 0 16px 0 16px;">
 									<div class="tab-pane active" role="tabpanel" id="step1">
-										<h3>Step 1</h3>
-										<p>This is step 1</p>
-										<ul class="list-inline pull-right">
-											<li><button type="button"
-													class="btn btn-primary next-step">Save and
-													continue</button></li>
-										</ul>
+										<h3>Problem 1</h3>
+										<form:form class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="1"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Cotest">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div>Insert TestCaseFile and SolutionFile</div>
+						<div class="form-group">
+							<div>Path TestCase:</div>
+							<input type="text" class="form-control" name="pathTest" placeholder="Path TestCase">
+						</div><br>
+						<div class="form-group">
+							<div>Path Soluzioni:</div>
+							<input type="text" class="form-control" name="pathSol" placeholder="Path Solutions">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+						</form:form>
+										
 									</div>
 									<div class="tab-pane" role="tabpanel" id="step2">
-										<h3>Step 2</h3>
-										<p>This is step 2</p>
-										<ul class="list-inline pull-right">
-											<li><button type="button"
-													class="btn btn-default prev-step">Previous</button></li>
-											<li><button type="button"
-													class="btn btn-primary next-step">Save and
-													continue</button></li>
-										</ul>
+										<h3>Problem 2</h3>
+										<form:form class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="2"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Contest">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Zip:</div>
+							<input type="text" class="form-control" name="pathZip" placeholder="Path Zip">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+						</form:form>
 									</div>
 									<div class="tab-pane" role="tabpanel" id="step3">
-										<h3>Step 3</h3>
-										<p>This is step 3</p>
-										<ul class="list-inline pull-right">
-											<li><button type="button"
-													class="btn btn-default prev-step">Previous</button></li>
-											<li><button type="button"
-													class="btn btn-default next-step">Skip</button></li>
-											<li><button type="button"
-													class="btn btn-primary btn-info-full next-step">Save
-													and continue</button></li>
-										</ul>
+										<h3>Problem 3</h3>
+										<form:form class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="3"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Contest">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Algorithm:</div>
+							<input type="text" class="form-control" name="pathAlgorithm" placeholder="Path Algorithm">
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+						</form:form>
 									</div>
 									<div class="tab-pane" role="tabpanel" id="complete">
-										<h3>Complete</h3>
-										<p>You have successfully completed all steps.</p>
+										<form:form id="4" class="navbar-form form-inline" action="addProblem" method="post"
+						modelAttribute="problemForm">
+						<div class="form-group">
+						<input type="hidden" name="type" value="4"/>
+						</div>
+						<div class="form-group">
+							<div>Id del contest:</div>
+							<input type="text" class="form-control" name="id" placeholder="Id Contest">
+						</div><br>
+						<div class="form-group">
+							<div>Nome problema:</div>
+							<input type="text" class="form-control" name="name" placeholder="Name">
+						</div><br>
+						<div class="form-group">
+							<div>Path Algorithm:</div>
+							<input type="text" class="form-control" name="pathAlgorithm" placeholder="Path Algorithm">
+						</div><br>
+						<div class="form-group">
+							<div>Domain:</div>
+						<input type="radio" name="domain" value="Array Integer" checked> Array Integer<br>
+						<input type="radio" name="domain" value="String"> String<br>
+						</div><br>
+						<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button-login" value="Add Problem" />
+						</div>
+					</form:form>
 									</div>
 									<div class="clearfix"></div>
 								</div>

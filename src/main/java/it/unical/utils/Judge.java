@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Judge
@@ -23,13 +22,13 @@ public class Judge
 	}
 	
 	
-	public String compile(String l, String username, String path) throws IOException {
+	public String compile(String language, String username, String path) throws IOException {
         System.out.println("Code compilation started...");
         ProcessBuilder p;
         boolean compiled = true;
-        if (l.equals("java")) {
+        if (language.equals("java")) {
             p = new ProcessBuilder("javac", "Main.java");
-        } else if (l.equals("c")) {
+        } else if (language.equals("c")) {
             p = new ProcessBuilder("gcc","-std=c++0x","-w","-o", "Main", "Main.c");
         } else {
             p = new ProcessBuilder("g++","-std=c++0x","-w", "-o", "Main", "Main.cpp");
@@ -63,14 +62,14 @@ public class Judge
         return "COMPILE_ERROR";
     }
 	
-	public String execute(String l, String n, long timeInMillis, String path) throws IOException {
+	public String execute(String language, String input, long timeInMillis, String path) throws IOException {
         System.out.println("Code started executing.");
         ProcessBuilder p;
-        if (l.equals("java")) {
-        	if(n != "")
-        		p = new ProcessBuilder("java", "Main", n);
+        if (language.equals("java")) {
+        	if(input != "")
+        		p = new ProcessBuilder("java", "Main", input);
         	else p = new ProcessBuilder("java", "Main");
-        } else if (l.equals("c")) {
+        } else if (language.equals("c")) {
             p = new ProcessBuilder("./Main");
         } else {
             p = new ProcessBuilder("./Main");
@@ -117,7 +116,7 @@ public class Judge
         return result;
 	}
 	
-	public String match(String result, String pathSol) {
+	public String match(String result, String pathSolution) {
         BufferedReader b1 = null, b2 = null;
         File f1, f2;
         try {
@@ -127,7 +126,7 @@ public class Judge
            // f2 = new File("/home/francesco/eclipse-workspace/testJudge/src/dir" + "/" + "out("+ user +").txt");
             //System.out.println("Output exists? [" + f2.exists() + "] Path=" + f2.getAbsolutePath());
             Reader inputString = new StringReader(result);
-            Reader inputStrings = new StringReader(pathSol);
+            Reader inputStrings = new StringReader(pathSolution);
             b1 = new BufferedReader(inputStrings);
             b2 = new BufferedReader(inputString);
 

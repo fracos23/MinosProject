@@ -46,6 +46,8 @@ public class Contest
 		@JoinColumn(name = "id_jury")
 		private Jury jury;
 		
+		
+		
 		public Contest()
 		{
 			this.idcontest =  DatabaseHandler.NO_ID;
