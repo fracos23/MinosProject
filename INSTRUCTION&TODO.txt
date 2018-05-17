@@ -1,0 +1,19 @@
+L'applicazione è una demo funzionante con lo scopo di illustrare il risultato del pogretto complessivo.
+Al livello attuale si avvia su un server locale (jetty, richiesto per esecuzione locale).
+Fa riferimento ad un DB locale, che dovrà poi essere importato su server universitario.
+Iscrivendosi come utente si può partecipare ai contest.
+Essendo una demo, parecchie pagine di riferimento e funzioni secondarie, sono mancanti (ad esempio Creazione Giuria da parte di un professore).
+Il progetto può essere ampliato come meglio si crede aggiungendo innumerevoli funzionalità, richieste per il completamento. 
+Qui di seguito mi limito a scrivere solo le più importanti che andrebbero implementate o modificate nell'immediato.
+
+MAIN TODO:
+ - attualmente il file con il codice inserito DEVE essere chiamato Main.java. 
+   Attuando le dovute modifiche potrà avere un nome qualsiasi.
+ 
+ - effettuare la pulizia del codice e delle varie jsp. Molti css sono inutilizzati, così come alcune view.
+ 
+ - utilizzare polimorfismo sull'inserimento del problema al posto degli switch, per una migliore interpretazione del codice.
+
+ - la libreria principale per l'esecuzione del codice, è ProcessBuilder, situata nella classe Judge.java.
+   Riferirsi a questa per migliorie effettive sull'esecuzione dei codici e degli errori ottenuti. 
+  

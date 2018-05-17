@@ -7,6 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -47,7 +51,9 @@ import it.unical.utils.TestCase;
 public class ProblemController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogInController.class);
-
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	
 	@Autowired
 	private WebApplicationContext context;
 
@@ -118,6 +124,7 @@ public class ProblemController {
 							String match = judge.match(result, strSolution);
 							if(match.equals("RIGHT"))
 								{
+								LocalDate localDate = LocalDate.now();
 								logger.info("corretto");
 								if(submit != null)
 								{
@@ -125,10 +132,11 @@ public class ProblemController {
 									submit.setIdTeam(team);
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									//set the score eventually here
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
-									return "problemview";
+									return "redirect:/";
 								}
 								else
 								{
@@ -137,9 +145,10 @@ public class ProblemController {
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
 									//set the score eventually here
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
-									return "problemview";				}
+									return "redirect:/";				}
 								}
 							else 
 								{
@@ -172,6 +181,7 @@ public class ProblemController {
 		
 		
 		case(3):{
+						LocalDate localDate = LocalDate.now();
 						String pathSol = path;
 						byte[] data2 = problem.getSol();
 						
@@ -203,6 +213,7 @@ public class ProblemController {
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
 									//set the score eventually here
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
 									return "problemview";
@@ -214,6 +225,7 @@ public class ProblemController {
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
 									//set the score eventually here
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
 									return "problemview";				}
@@ -228,6 +240,7 @@ public class ProblemController {
 			}
 		
 		case(4):{
+						LocalDate localDate = LocalDate.now();
 						String pathSol = path;
 						byte[] data = problem.getTest();
 						byte[] data2 = problem.getSol();
@@ -261,10 +274,11 @@ public class ProblemController {
 									submit.setIdTeam(team);
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									//set the score eventually here
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
-									return "problemview";
+									return "redirect:/";
 								}
 								else
 								{
@@ -273,9 +287,10 @@ public class ProblemController {
 									submit.setProblem(problem);
 									submit.setInfo(problem.getName());
 									//set the score eventually here
+									submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 									submit.setSolution(fileData);
 									submitDAO.create(submit);
-									return "problemview";				}
+									return "redirect:/";				}
 								}
 							else 
 								{
@@ -314,11 +329,14 @@ public class ProblemController {
 			submitDAO.delete(submit);
 			
 		}
+		LocalDate localDate = LocalDate.now();
+
 			submit = new Submit();
 			submit.setIdTeam(team);
 			submit.setProblem(problem);
 			submit.setInfo(problem.getName());
 			//set the score eventually here
+			submit.setDate(DateTimeFormatter.ofPattern("yyy/MM/dd").format(localDate));
 			submit.setSolution(fileData);
 		
 		submitDAO.create(submit);
@@ -329,8 +347,8 @@ public class ProblemController {
 
 	@RequestMapping(value = "/addProblem", method = RequestMethod.POST)
 	public String addProblem(HttpSession session,@ModelAttribute AddProblemForm problemForm, Model model) throws IOException {
-		setAccountAttribute(session, model);
 		
+		setAccountAttribute(session, model);
 		ProblemDAO problemDAO = (ProblemDAO) context.getBean("problemDAO");
 		Problem problem= new Problem();
 		ContestDAO contestDAO = (ContestDAO) context.getBean("contestDAO");
@@ -339,6 +357,7 @@ public class ProblemController {
 		switch(Integer.parseInt(problemForm.getType()))
 		{
 		case(1):{
+				
 				String pathTest = problemForm.getPathTest();
 				String pathSol = problemForm.getPathSol();
 				
@@ -376,7 +395,7 @@ public class ProblemController {
 				problem.setSol(fileData2);
 				problem.setTest(fileData1);
 				problemDAO.create(problem);		
-				
+				logger.info("inserito");
 				return "redirect:/";
 			}
 		case(2):{

@@ -232,7 +232,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/addContest", method = RequestMethod.POST)
-	public String addContest(@ModelAttribute AddContestForm addContestForm, @RequestParam String restriction,
+	public String addContest(@ModelAttribute AddContestForm addContestForm, /*@RequestParam String restriction*/
 			HttpSession session, Model model) {
 		setAccountAttribute(session, model);
 
@@ -248,7 +248,7 @@ public class HomeController {
 		Jury jury = juryDAO.get(Integer.parseInt(addContestForm.getJury()));
 
 		contest.setName(addContestForm.getName());
-		contest.setRestriction(Integer.parseInt(restriction));
+		contest.setRestriction(1);
 		contest.setSubject(subject);
 		contest.setJury(jury);
 		contest.setDeadline(

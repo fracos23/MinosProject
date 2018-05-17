@@ -119,8 +119,10 @@ public class TeamController {
 			}
 			else if(user3 == null)
 			{
-				if(user.getId() != user1.getId() && user.getId() != user2.getId())
+				if(!user.getId().equals(user1.getId()) && user.getId() != user2.getId())
 				{
+					logger.info(user.getId()+"");
+					logger.info(user1.getId()+"");
 					logger.info("devi essere nel Team che hai creato");
 					return "redirect:/createteam";
 				}

@@ -1036,6 +1036,11 @@ section.content {
 
 
 /* Card ======================================== */
+.modify-card {
+ 
+ height: auto !important;
+}
+  
 .card {
   background: #fff;
  height: 322px;

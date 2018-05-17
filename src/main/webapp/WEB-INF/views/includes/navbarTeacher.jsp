@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,12 +28,16 @@
 			<li>
 				<div id="custom-search-input" style="margin: 16px">
 					<div class="input-group col-md-12">
+					<form:form id="navbar-search-form" class="navbar-form form-inline"
+			action="searchProblem" method="POST" modelAttribute="searchForm"
+			style="margin: 0px !important;padding: 0px !important;">
 						<input type="text" class="form-control input-lg"
-							placeholder="Solutions" /> <span class="input-group-btn">
+							placeholder="Solutions" name="word" /> <span class="input-group-btn">
 							<button class="btn btn-info btn-lg" type="button">
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
 						</span>
+						</form:form>
 					</div>
 				</div>
 			</li>

@@ -110,7 +110,7 @@
 												<td>${submit.problem.name}</td>
 												<td>Sort</td>
 												<td>${submit.team.name}</td>
-												<td>00-00-00</td>
+												<td>${submit.date}</td>
 												<td>${problem.score}</td>
 												<td><span class="label bg-green">Done</span></td>
 											</tr>
@@ -426,7 +426,7 @@
 								</ul>
 							</div>
 
-							<form role="form">
+							
 								<div class="tab-content" style="margin: 0 16px 0 16px;">
 									<div class="tab-pane active" role="tabpanel" id="step1">
 										<h3>Problem 1</h3>
@@ -536,7 +536,7 @@
 									</div>
 									<div class="clearfix"></div>
 								</div>
-							</form>
+							
 						</div>
 					</div>
 				</div>

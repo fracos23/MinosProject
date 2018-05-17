@@ -32,8 +32,23 @@ public class Submit
 	@Column(name = "score")
 	private String score;
 	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	@Column(name = "info")
 	private String info;
+	
+	@Column(name = "date")
+	private String date;
 	
 	@Column(name = "solution")
 	private byte[] solution;

@@ -63,9 +63,11 @@ public class ContestController {
 		List<Problem> problems = problemDAO.getProblemOfAContest(contest.getIdcontest());
 		logger.info("contesttttt "+problems.size());
 		model.addAttribute("teams", teams);
+		if(!problems.isEmpty())
 		model.addAttribute("problems", problems);
+		else model.addAttribute("problems", "");
 		model.addAttribute("contest", contest.getIdcontest());
-		return "contestviews";
+		return "contest";
 
 	}
 	
